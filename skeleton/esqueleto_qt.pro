@@ -4,6 +4,7 @@ HEADERS += \
   cone.h \
   cube.h \
   cylinder.h \
+  hierarchical.h \
   object3d.h \
   axis.h \
   ply_object.h \
@@ -18,6 +19,7 @@ SOURCES += \
   cone.cc \
   cube.cc \
   cylinder.cc \
+  hierarchical.cc \
   object3d.cc \
   axis.cc \
   ply_object.cc \

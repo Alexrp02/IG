@@ -20,6 +20,7 @@
 #include "sphere.h"
 #include "vertex.h"
 #include "colors.h"
+#include "hierarchical.h"
 #include "axis.h"
 #include "tetrahedron.h"
 #include "file_ply_stl.h"
@@ -38,7 +39,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS} _mode_draw;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY, OBJECT_CONE, OBJECT_CYLINDER, OBJECT_SPHERE} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY, OBJECT_CONE, OBJECT_CYLINDER, OBJECT_SPHERE, OBJECT_HIERARCHICAL} _object;
 }
 
 class _window;
@@ -81,6 +82,7 @@ private:
   _cone Cone = _cone(100, 1.0, 1.0);
   _cylinder Cylinder = _cylinder(100, 1.0, 1.0) ;
   _sphere Sphere = _sphere(50, 1.0, 100) ;
+  _hierarchical Hierarchical = _hierarchical() ;
   _gl_widget_ne::_object Object;
 
   bool Draw_point;
