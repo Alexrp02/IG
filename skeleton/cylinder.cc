@@ -28,16 +28,16 @@ _cylinder::_cylinder(int n, float r, float h)
         //(2*M_PI/n)*i
 //        Vertices[pos] = _vertex3f(0, 0, 0);
 //        pos++ ;
-        Vertices[pos] = _vertex3f((cos((2*M_PI/n)*i) )*r, 0, (sin((2*M_PI/n)*i))*r);
+        Vertices[pos] = _vertex3f((cos((2*M_PI/n)*i) )*r, -h/2, (sin((2*M_PI/n)*i))*r);
         pos++;
-        Vertices[pos] = _vertex3f((cos((2*M_PI/n)*i) )*r, h, (sin((2*M_PI/n)*i))*r);
+        Vertices[pos] = _vertex3f((cos((2*M_PI/n)*i) )*r, h/2, (sin((2*M_PI/n)*i))*r);
         pos++;
 //        Vertices[pos] = _vertex3f(0, h, 0);
 //        pos++;
     }
-    Vertices[pos] = _vertex3f(0, h, 0);
+    Vertices[pos] = _vertex3f(0, h/2, 0);
     pos++;
-    Vertices[pos] = _vertex3f(0, 0, 0);
+    Vertices[pos] = _vertex3f(0, -h/2, 0);
     pos++ ;
 
     Triangles.resize(4*n) ;

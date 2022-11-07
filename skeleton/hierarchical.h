@@ -29,6 +29,7 @@ protected:
     _sphere sphere = _sphere(50, 1.0, 80);
 public:
     _hierarchical();
+    float x ;
     void draw_fill();
     void patadraw() ;
 };

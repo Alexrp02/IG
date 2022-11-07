@@ -9,6 +9,7 @@
 
 #include "glwidget.h"
 #include "window.h"
+#include <QTimer>
 
 using namespace std;
 using namespace _gl_widget_ne;
@@ -23,8 +24,17 @@ using namespace _colors_ne;
 
 _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 {
+  timer = new QTimer(this) ;
+  connect(timer, SIGNAL(timeout()), this, SLOT(idle_event())) ;
+  timer->start(0) ;
   setMinimumSize(300, 300);
   setFocusPolicy(Qt::StrongFocus);
+}
+
+void _gl_widget::idle_event() {
+    Hierarchical.x+=1 ;
+    cout << "Prueba" ;
+    update() ;
 }
 
 
@@ -46,6 +56,7 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_HIERARCHICAL;break;
 
+  case Qt::Key_A:Hierarchical.x+=0.1;break;
   case Qt::Key_P:Draw_point=!Draw_point;break;
   case Qt::Key_L:Draw_line=!Draw_line;break;
   case Qt::Key_F:Draw_fill=!Draw_fill;break;

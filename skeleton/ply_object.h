@@ -28,6 +28,7 @@ public:
     vector<unsigned int> Positions;
   _ply_object(const string &file_name);
   _file_ply reader= _file_ply() ;
+  void draw_line();
 };
 
 #endif

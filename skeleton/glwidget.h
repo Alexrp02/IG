@@ -64,6 +64,8 @@ public:
   void draw_axis();
   void draw_objects();
 
+public slots:
+  void idle_event() ;
 
 protected:
   void resizeGL(int Width1, int Height1) Q_DECL_OVERRIDE;
@@ -75,11 +77,12 @@ protected:
 private:
   _window *Window;
 
+  QTimer* timer ;
   _axis Axis;
   _tetrahedron Tetrahedron;
   _cube Cube;
   _ply_object Ply  = _ply_object("/home/alexr/Documentos/UGR/IG/skeleton/ply_models/cow.ply");
-  _cone Cone = _cone(100, 1.0, 1.0);
+  _cone Cone = _cone(100, 0.5, 1.0);
   _cylinder Cylinder = _cylinder(100, 1.0, 1.0) ;
   _sphere Sphere = _sphere(50, 1.0, 100) ;
   _hierarchical Hierarchical = _hierarchical() ;

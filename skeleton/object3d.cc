@@ -42,8 +42,8 @@ void _object3D::draw_line()
 void _object3D::draw_fill()
 {
   int Vertex_1,Vertex_2,Vertex_3;
-  glBegin(GL_TRIANGLES) ;
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
+  glBegin(GL_TRIANGLES) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {
       Vertex_1 = Triangles[i]._0  ;
       Vertex_2 = Triangles[i]._1  ;
@@ -66,8 +66,8 @@ void _object3D::draw_chess()
 {
     int Vertex_1,Vertex_2,Vertex_3;
     bool color = true;
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
     glBegin(GL_TRIANGLES) ;
-    glPolygonMode(GL_BACK, GL_FILL) ;
     for(unsigned int i=0 ; i<Triangles.size() ; i++) {
         color ? glColor3fv((GLfloat *) &RED) : glColor3fv((GLfloat *) &GREEN);
         Vertex_1 = Triangles[i]._0  ;
