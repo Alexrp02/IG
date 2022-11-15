@@ -27,13 +27,21 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
   timer = new QTimer(this) ;
   connect(timer, SIGNAL(timeout()), this, SLOT(idle_event())) ;
   timer->start(0) ;
+  giro = false ;
   setMinimumSize(300, 300);
   setFocusPolicy(Qt::StrongFocus);
 }
 
 void _gl_widget::idle_event() {
-    Hierarchical.x+=1 ;
-    cout << "Prueba" ;
+//    Hierarchical.x+=1 ;
+
+    if(Antebrazo.apertura >= 50) {
+        giro=true;
+    }else if (Antebrazo.apertura <= 10) {
+        giro = false ;
+    }
+    giro ? Antebrazo.apertura -= 0.5 : Antebrazo.apertura += 0.5 ;
+//    Dedo.x += 1 ;
     update() ;
 }
 
@@ -56,7 +64,15 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_HIERARCHICAL;break;
 
-  case Qt::Key_A:Hierarchical.x+=0.1;break;
+//  case Qt::Key_A:Hierarchical.x+=0.1;break;
+  case Qt::Key_Q:
+      if(Antebrazo.translacion>-1+0.01)
+          Antebrazo.translacion -= 0.01;
+      break;
+  case Qt::Key_W:
+      if(Antebrazo.translacion<0-0.01)
+          Antebrazo.translacion += 0.01 ;
+      break;
   case Qt::Key_P:Draw_point=!Draw_point;break;
   case Qt::Key_L:Draw_line=!Draw_line;break;
   case Qt::Key_F:Draw_fill=!Draw_fill;break;
@@ -173,7 +189,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_fill();break;
     case OBJECT_CYLINDER:Cylinder.draw_fill();break;
     case OBJECT_SPHERE:Sphere.draw_fill();break;
-    case OBJECT_HIERARCHICAL:Hierarchical.draw_fill();break;
+//    case OBJECT_HIERARCHICAL:Hierarchical.draw_fill();break;
     default:break;
     }
   }
@@ -186,6 +202,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_chess();break;
     case OBJECT_CYLINDER:Cylinder.draw_chess();break;
     case OBJECT_SPHERE:Sphere.draw_chess();break;
+    case OBJECT_HIERARCHICAL:Antebrazo.draw_fill();break;
     default:break;
     }
   }

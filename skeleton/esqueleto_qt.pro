@@ -1,10 +1,13 @@
-HEADERS += \
+HEADERS = \
+  antebrazo.h \
   colors.h \
   basic_object3d.h \
   cone.h \
   cube.h \
   cylinder.h \
+  dedo.h \
   hierarchical.h \
+  mano.h \
   object3d.h \
   axis.h \
   ply_object.h \
@@ -14,12 +17,15 @@ HEADERS += \
   window.h \
   file_ply_stl.h
 
-SOURCES += \
+SOURCES = \
+  antebrazo.cc \
   basic_object3d.cc \
   cone.cc \
   cube.cc \
   cylinder.cc \
+  dedo.cc \
   hierarchical.cc \
+  mano.cc \
   object3d.cc \
   axis.cc \
   ply_object.cc \

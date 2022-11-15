@@ -14,9 +14,12 @@
 #include <QOpenGLWidget>
 #include <QKeyEvent>
 #include <iostream>
+#include "antebrazo.h"
 #include "cube.h"
 #include "cone.h"
 #include "cylinder.h"
+#include "dedo.h"
+#include "mano.h"
 #include "sphere.h"
 #include "vertex.h"
 #include "colors.h"
@@ -63,6 +66,7 @@ public:
 
   void draw_axis();
   void draw_objects();
+  bool giro ;
 
 public slots:
   void idle_event() ;
@@ -81,11 +85,14 @@ private:
   _axis Axis;
   _tetrahedron Tetrahedron;
   _cube Cube;
-  _ply_object Ply  = _ply_object("/home/alexr/Documentos/UGR/IG/skeleton/ply_models/cow.ply");
+  _ply_object Ply  = _ply_object("/home/alexr/Documentos/UGR/IG/skeleton/ply_models/ant.ply");
   _cone Cone = _cone(100, 0.5, 1.0);
   _cylinder Cylinder = _cylinder(100, 1.0, 1.0) ;
   _sphere Sphere = _sphere(50, 1.0, 100) ;
-  _hierarchical Hierarchical = _hierarchical() ;
+//  _hierarchical Hierarchical = _hierarchical() ;
+  _dedo Dedo = _dedo() ;
+  _mano Mano = _mano() ;
+  _antebrazo Antebrazo = _antebrazo() ;
   _gl_widget_ne::_object Object;
 
   bool Draw_point;
