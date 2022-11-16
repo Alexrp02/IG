@@ -20,13 +20,11 @@
 
 _antebrazo::_antebrazo()
 {
-    apertura = 40;
     translacion=0 ;
 }
 
 void _antebrazo::draw_fill() {
     glMatrixMode(GL_MODELVIEW) ;
-    mano.apertura = apertura ;
 
 //    glPushMatrix() ;
 //    glRotatef(45, 0, 0, 1) ;

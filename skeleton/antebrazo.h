@@ -25,11 +25,11 @@
 class _antebrazo:public _object3D
 {
 protected:
-    _mano mano = _mano() ;
+
     _cube cube = _cube() ;
 public:
+    _mano mano = _mano() ;
     _antebrazo();
-    float apertura ;
     float translacion ;
     void draw_fill();
 };

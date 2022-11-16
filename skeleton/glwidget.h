@@ -15,11 +15,16 @@
 #include <QKeyEvent>
 #include <iostream>
 #include "antebrazo.h"
+#include "brazo.h"
+#include "cabeza.h"
 #include "cube.h"
 #include "cone.h"
+#include "cuerpo.h"
 #include "cylinder.h"
 #include "dedo.h"
 #include "mano.h"
+#include "ojo.h"
+#include "rueda.h"
 #include "sphere.h"
 #include "vertex.h"
 #include "colors.h"
@@ -85,7 +90,7 @@ private:
   _axis Axis;
   _tetrahedron Tetrahedron;
   _cube Cube;
-  _ply_object Ply  = _ply_object("/home/alexr/Documentos/UGR/IG/skeleton/ply_models/ant.ply");
+  _ply_object Ply  = _ply_object("../skeleton/ply_models/ant.ply");
   _cone Cone = _cone(100, 0.5, 1.0);
   _cylinder Cylinder = _cylinder(100, 1.0, 1.0) ;
   _sphere Sphere = _sphere(50, 1.0, 100) ;
@@ -93,6 +98,11 @@ private:
   _dedo Dedo = _dedo() ;
   _mano Mano = _mano() ;
   _antebrazo Antebrazo = _antebrazo() ;
+  _brazo Brazo = _brazo() ;
+  _ojo Ojo = _ojo() ;
+  _cabeza Cabeza = _cabeza() ;
+  _cuerpo Cuerpo = _cuerpo() ;
+  _rueda Rueda = _rueda() ;
   _gl_widget_ne::_object Object;
 
   bool Draw_point;

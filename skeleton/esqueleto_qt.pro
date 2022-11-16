@@ -1,16 +1,21 @@
 HEADERS = \
   antebrazo.h \
+  brazo.h \
+  cabeza.h \
   colors.h \
   basic_object3d.h \
   cone.h \
   cube.h \
+  cuerpo.h \
   cylinder.h \
   dedo.h \
   hierarchical.h \
   mano.h \
   object3d.h \
   axis.h \
+  ojo.h \
   ply_object.h \
+  rueda.h \
   sphere.h \
   tetrahedron.h \
   glwidget.h \
@@ -20,15 +25,20 @@ HEADERS = \
 SOURCES = \
   antebrazo.cc \
   basic_object3d.cc \
+  brazo.cc \
+  cabeza.cc \
   cone.cc \
   cube.cc \
+  cuerpo.cc \
   cylinder.cc \
   dedo.cc \
   hierarchical.cc \
   mano.cc \
   object3d.cc \
   axis.cc \
+  ojo.cc \
   ply_object.cc \
+  rueda.cc \
   sphere.cc \
   tetrahedron.cc \
   main.cc \

@@ -84,6 +84,5 @@ _sphere::_sphere(int n, float r, int revolutions)
         pos++ ;
     }
 
-    cout << "HEy" ;
 }
 

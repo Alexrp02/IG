@@ -72,6 +72,5 @@ _cone::_cone(int n, float r, float h)
         Edges[pos]._1 = Triangles[i]._0 ;
         pos++ ;
     }
-    cout << "HEy" ;
 }
 
