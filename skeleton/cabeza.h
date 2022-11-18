@@ -29,6 +29,7 @@ protected:
     _ojo ojo = _ojo () ;
 public:
     _cabeza();
+    float rotacion ;
     void draw_fill();
 };
 
