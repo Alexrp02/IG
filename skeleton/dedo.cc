@@ -11,7 +11,7 @@
 #include "cube.h"
 #include<cmath>
 
-
+using namespace _colors_ne;
 
 /*****************************************************************************//**
  *
@@ -37,7 +37,8 @@ void _dedo::draw_fill() {
             glPushMatrix() ;
                 glTranslatef(0.125, 0.05, 0) ;
                 glScalef(0.25, 0.1, 0.1) ;
-                cube1.draw_chess() ;
+                glColor3fv((GLfloat *) &GRAY) ;
+                cube.draw_fill() ;
             glPopMatrix() ;
             glPopMatrix() ;
         glPopMatrix() ;
@@ -46,7 +47,8 @@ void _dedo::draw_fill() {
             glTranslatef(0.125, 0 ,0) ;
             glPushMatrix() ;
                 glScalef(0.25, 0.1, 0.1) ;
-                cube2.draw_chess() ;
+                glColor3fv((GLfloat *) &GRAY) ;
+                cube.draw_fill() ;
             glPopMatrix() ;
         glPopMatrix() ;
     glPopMatrix() ;

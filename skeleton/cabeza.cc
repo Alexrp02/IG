@@ -28,11 +28,12 @@ _cabeza::_cabeza()
 void _cabeza::draw_fill() {
     glMatrixMode(GL_MODELVIEW) ;
 
+    glPushMatrix();
+    glRotatef(rotacion,0,1,0) ;
+    glTranslatef(0, 0.25, 0) ;
     glColor3fv((GLfloat *) &GRAY) ;
     cylinder.draw_fill() ;
 
-    glPushMatrix();
-    glRotatef(rotacion,0,1,0) ;
     glPushMatrix() ;
         glTranslatef(-0.21, 0.3, 0) ;
         ojo.draw_fill() ;

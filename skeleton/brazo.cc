@@ -10,7 +10,7 @@
 #include "brazo.h"
 #include<cmath>
 
-
+using namespace _colors_ne;
 
 /*****************************************************************************//**
  *
@@ -28,7 +28,8 @@ void _brazo::draw_fill() {
     glPushMatrix() ;
         glScalef(1, 0.25, 0.25) ;
         glTranslatef(0.5, 0, 0) ;
-        cube.draw_chess() ;
+        glColor3fv((GLfloat *) &GRAY) ;
+        cube.draw_fill() ;
     glPopMatrix();
 
     glPushMatrix() ;

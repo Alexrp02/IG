@@ -7,11 +7,14 @@
  */
 
 
-#ifndef DEDO_H
-#define DEDO_H
+#ifndef ROBOT_H
+#define ROBOT_H
 
-#include "cube.h"
+#include "brazo.h"
+#include "cabeza.h"
+#include "cuerpo.h"
 #include "object3d.h"
+#include "rueda.h"
 
 
 
@@ -21,13 +24,16 @@
  *
  *****************************************************************************/
 
-class _dedo:public _object3D
+class _robot:public _object3D
 {
 protected:
-    _cube cube ;
+
+    _cuerpo cuerpo = _cuerpo () ;
+    _rueda rueda = _rueda() ;
 public:
-    _dedo();
-    float x ;
+    _robot();
+    _cabeza cabeza = _cabeza() ;
+    _brazo brazo = _brazo () ;
     void draw_fill();
 };
 

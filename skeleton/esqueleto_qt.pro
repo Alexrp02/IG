@@ -15,6 +15,7 @@ HEADERS = \
   axis.h \
   ojo.h \
   ply_object.h \
+  robot.h \
   rueda.h \
   sphere.h \
   tetrahedron.h \
@@ -38,6 +39,7 @@ SOURCES = \
   axis.cc \
   ojo.cc \
   ply_object.cc \
+  robot.cc \
   rueda.cc \
   sphere.cc \
   tetrahedron.cc \

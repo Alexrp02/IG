@@ -10,7 +10,7 @@
 #include "antebrazo.h"
 #include<cmath>
 
-
+using namespace _colors_ne;
 
 /*****************************************************************************//**
  *
@@ -34,7 +34,8 @@ void _antebrazo::draw_fill() {
             glTranslatef(0.5 , 0, 0) ;
             glPushMatrix() ;
                 glScalef(1, 0.15, 0.15) ;
-                cube.draw_chess() ;
+                glColor3fv((GLfloat *) &GRAY) ;
+                cube.draw_fill() ;
             glPopMatrix() ;
         glPopMatrix() ;
 

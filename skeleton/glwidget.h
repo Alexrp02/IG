@@ -24,6 +24,7 @@
 #include "dedo.h"
 #include "mano.h"
 #include "ojo.h"
+#include "robot.h"
 #include "rueda.h"
 #include "sphere.h"
 #include "vertex.h"
@@ -103,6 +104,7 @@ private:
   _cabeza Cabeza = _cabeza() ;
   _cuerpo Cuerpo = _cuerpo() ;
   _rueda Rueda = _rueda() ;
+  _robot Robot = _robot() ;
   _gl_widget_ne::_object Object;
 
   bool Draw_point;

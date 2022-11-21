@@ -10,7 +10,7 @@
 #include "mano.h"
 #include<cmath>
 
-
+using namespace _colors_ne;
 
 /*****************************************************************************//**
  *
@@ -28,7 +28,8 @@ void _mano::draw_fill() {
 
     glPushMatrix() ;
         glScalef(0.1, 0.1, 0.1) ;
-        sphere.draw_chess() ;
+        glColor3fv((GLfloat *) &GRAY) ;
+        sphere.draw_fill() ;
     glPopMatrix() ;
 
     glPushMatrix() ;

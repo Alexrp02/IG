@@ -67,6 +67,7 @@ SOURCES       = ../skeleton/antebrazo.cc \
 		../skeleton/axis.cc \
 		../skeleton/ojo.cc \
 		../skeleton/ply_object.cc \
+		../skeleton/robot.cc \
 		../skeleton/rueda.cc \
 		../skeleton/sphere.cc \
 		../skeleton/tetrahedron.cc \
@@ -90,6 +91,7 @@ OBJECTS       = antebrazo.o \
 		axis.o \
 		ojo.o \
 		ply_object.o \
+		robot.o \
 		rueda.o \
 		sphere.o \
 		tetrahedron.o \
@@ -337,6 +339,7 @@ DIST          = ../skeleton/ply_models/airplane.ply \
 		../skeleton/axis.h \
 		../skeleton/ojo.h \
 		../skeleton/ply_object.h \
+		../skeleton/robot.h \
 		../skeleton/rueda.h \
 		../skeleton/sphere.h \
 		../skeleton/tetrahedron.h \
@@ -357,6 +360,7 @@ DIST          = ../skeleton/ply_models/airplane.ply \
 		../skeleton/axis.cc \
 		../skeleton/ojo.cc \
 		../skeleton/ply_object.cc \
+		../skeleton/robot.cc \
 		../skeleton/rueda.cc \
 		../skeleton/sphere.cc \
 		../skeleton/tetrahedron.cc \
@@ -815,8 +819,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt/5.15.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../skeleton/antebrazo.h ../skeleton/brazo.h ../skeleton/cabeza.h ../skeleton/colors.h ../skeleton/basic_object3d.h ../skeleton/cone.h ../skeleton/cube.h ../skeleton/cuerpo.h ../skeleton/cylinder.h ../skeleton/dedo.h ../skeleton/hierarchical.h ../skeleton/mano.h ../skeleton/object3d.h ../skeleton/axis.h ../skeleton/ojo.h ../skeleton/ply_object.h ../skeleton/rueda.h ../skeleton/sphere.h ../skeleton/tetrahedron.h ../skeleton/glwidget.h ../skeleton/window.h ../skeleton/file_ply_stl.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../skeleton/antebrazo.cc ../skeleton/basic_object3d.cc ../skeleton/brazo.cc ../skeleton/cabeza.cc ../skeleton/cone.cc ../skeleton/cube.cc ../skeleton/cuerpo.cc ../skeleton/cylinder.cc ../skeleton/dedo.cc ../skeleton/hierarchical.cc ../skeleton/mano.cc ../skeleton/object3d.cc ../skeleton/axis.cc ../skeleton/ojo.cc ../skeleton/ply_object.cc ../skeleton/rueda.cc ../skeleton/sphere.cc ../skeleton/tetrahedron.cc ../skeleton/main.cc ../skeleton/glwidget.cc ../skeleton/window.cc ../skeleton/file_ply_stl.cc $(DISTDIR)/
+	$(COPY_FILE) --parents ../skeleton/antebrazo.h ../skeleton/brazo.h ../skeleton/cabeza.h ../skeleton/colors.h ../skeleton/basic_object3d.h ../skeleton/cone.h ../skeleton/cube.h ../skeleton/cuerpo.h ../skeleton/cylinder.h ../skeleton/dedo.h ../skeleton/hierarchical.h ../skeleton/mano.h ../skeleton/object3d.h ../skeleton/axis.h ../skeleton/ojo.h ../skeleton/ply_object.h ../skeleton/robot.h ../skeleton/rueda.h ../skeleton/sphere.h ../skeleton/tetrahedron.h ../skeleton/glwidget.h ../skeleton/window.h ../skeleton/file_ply_stl.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../skeleton/antebrazo.cc ../skeleton/basic_object3d.cc ../skeleton/brazo.cc ../skeleton/cabeza.cc ../skeleton/cone.cc ../skeleton/cube.cc ../skeleton/cuerpo.cc ../skeleton/cylinder.cc ../skeleton/dedo.cc ../skeleton/hierarchical.cc ../skeleton/mano.cc ../skeleton/object3d.cc ../skeleton/axis.cc ../skeleton/ojo.cc ../skeleton/ply_object.cc ../skeleton/robot.cc ../skeleton/rueda.cc ../skeleton/sphere.cc ../skeleton/tetrahedron.cc ../skeleton/main.cc ../skeleton/glwidget.cc ../skeleton/window.cc ../skeleton/file_ply_stl.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -979,6 +983,8 @@ moc_glwidget.cpp: ../skeleton/glwidget.h \
 		../skeleton/ojo.h \
 		../skeleton/cone.h \
 		../skeleton/cuerpo.h \
+		../skeleton/robot.h \
+		../skeleton/rueda.h \
 		../skeleton/hierarchical.h \
 		../skeleton/axis.h \
 		../skeleton/tetrahedron.h \
@@ -1311,6 +1317,15 @@ ply_object.o: ../skeleton/ply_object.cc ../skeleton/ply_object.h \
 		../skeleton/colors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ply_object.o ../skeleton/ply_object.cc
 
+robot.o: ../skeleton/robot.cc ../skeleton/robot.h \
+		../skeleton/cuerpo.h \
+		../skeleton/cube.h \
+		../skeleton/object3d.h \
+		../skeleton/basic_object3d.h \
+		../skeleton/colors.h \
+		../skeleton/vertex.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o robot.o ../skeleton/robot.cc
+
 rueda.o: ../skeleton/rueda.cc ../skeleton/rueda.h \
 		../skeleton/cylinder.h \
 		../skeleton/object3d.h \
@@ -1595,6 +1610,8 @@ glwidget.o: ../skeleton/glwidget.cc ../skeleton/glwidget.h \
 		../skeleton/ojo.h \
 		../skeleton/cone.h \
 		../skeleton/cuerpo.h \
+		../skeleton/robot.h \
+		../skeleton/rueda.h \
 		../skeleton/hierarchical.h \
 		../skeleton/axis.h \
 		../skeleton/tetrahedron.h \
@@ -1794,6 +1811,8 @@ window.o: ../skeleton/window.cc /opt/Qt/5.15.2/gcc_64/include/QtWidgets/QApplica
 		../skeleton/ojo.h \
 		../skeleton/cone.h \
 		../skeleton/cuerpo.h \
+		../skeleton/robot.h \
+		../skeleton/rueda.h \
 		../skeleton/hierarchical.h \
 		../skeleton/axis.h \
 		../skeleton/tetrahedron.h \

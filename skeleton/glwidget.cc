@@ -35,12 +35,12 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 void _gl_widget::idle_event() {
 //    Hierarchical.x+=1 ;
 
-    if(Cabeza.rotacion >= 30) {
+    if(Robot.cabeza.rotacion >= 30) {
         giro=true;
-    }else if (Cabeza.rotacion <= -30) {
+    }else if (Robot.cabeza.rotacion <= -30) {
         giro = false ;
     }
-    giro ? Cabeza.rotacion -= 0.5 : Cabeza.rotacion += 0.5 ;
+    giro ? Robot.cabeza.rotacion -= 0.5 : Robot.cabeza.rotacion += 0.5 ;
 //    Dedo.x += 1 ;
     update() ;
 }
@@ -202,7 +202,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_chess();break;
     case OBJECT_CYLINDER:Cylinder.draw_chess();break;
     case OBJECT_SPHERE:Sphere.draw_chess();break;
-    case OBJECT_HIERARCHICAL:Cabeza.draw_fill();break;
+    case OBJECT_HIERARCHICAL:Robot.draw_fill();break;
     default:break;
     }
   }

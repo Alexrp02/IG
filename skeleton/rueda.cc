@@ -29,8 +29,9 @@ void _rueda::draw_fill() {
 
 
     glPushMatrix() ;
+    glTranslatef(-0.28, 0, 0);
+    glPushMatrix() ;
         glRotatef(90,0,0,1) ;
-
         glColor3fv((GLfloat *) &BLACK) ;
         cylinder.draw_fill() ;
 
@@ -41,6 +42,7 @@ void _rueda::draw_fill() {
             cylinder.draw_fill() ;
         glPopMatrix();
     glPopMatrix();
+    glPopMatrix() ;
 }
 
 
