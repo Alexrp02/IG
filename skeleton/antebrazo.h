@@ -31,7 +31,7 @@ public:
     _mano mano = _mano() ;
     _antebrazo();
     float translacion ;
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

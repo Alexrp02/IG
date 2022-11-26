@@ -24,7 +24,7 @@ _dedo::_dedo()
     x = 0;
 }
 
-void _dedo::draw_fill() {
+void _dedo::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
     glPushMatrix () ;
@@ -38,7 +38,15 @@ void _dedo::draw_fill() {
                 glTranslatef(0.125, 0.05, 0) ;
                 glScalef(0.25, 0.1, 0.1) ;
                 glColor3fv((GLfloat *) &GRAY) ;
-                cube.draw_fill() ;
+                if(mode=="FILL"){
+                    cube.draw_fill() ;
+                }else if(mode=="LINE"){
+                    cube.draw_line() ;
+                }else if(mode=="CHESS"){
+                    cube.draw_chess() ;
+                }else if (mode=="POINT"){
+                    cube.draw_point();
+                }
             glPopMatrix() ;
             glPopMatrix() ;
         glPopMatrix() ;
@@ -48,7 +56,15 @@ void _dedo::draw_fill() {
             glPushMatrix() ;
                 glScalef(0.25, 0.1, 0.1) ;
                 glColor3fv((GLfloat *) &GRAY) ;
-                cube.draw_fill() ;
+                if(mode=="FILL"){
+                    cube.draw_fill() ;
+                }else if(mode=="LINE"){
+                    cube.draw_line() ;
+                }else if(mode=="CHESS"){
+                    cube.draw_chess() ;
+                }else if (mode=="POINT"){
+                    cube.draw_point();
+                }
             glPopMatrix() ;
         glPopMatrix() ;
     glPopMatrix() ;

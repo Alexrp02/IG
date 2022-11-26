@@ -28,7 +28,7 @@ protected:
 public:
     _dedo();
     float x ;
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

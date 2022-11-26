@@ -30,7 +30,7 @@ protected:
 public:
     _cabeza();
     float rotacion ;
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

@@ -25,25 +25,33 @@ _cabeza::_cabeza()
     rotacion = 0 ;
 }
 
-void _cabeza::draw_fill() {
+void _cabeza::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
     glPushMatrix();
     glRotatef(rotacion,0,1,0) ;
     glTranslatef(0, 0.25, 0) ;
     glColor3fv((GLfloat *) &GRAY) ;
-    cylinder.draw_fill() ;
+    if(mode=="FILL"){
+        cylinder.draw_fill() ;
+    }else if(mode=="LINE"){
+        cylinder.draw_line() ;
+    }else if(mode=="CHESS"){
+        cylinder.draw_chess() ;
+    }else if (mode=="POINT"){
+        cylinder.draw_point();
+    }
 
     glPushMatrix() ;
         glTranslatef(-0.21, 0.3, 0) ;
-        ojo.draw_fill() ;
+        ojo.draw(mode) ;
     glPopMatrix() ;
 
     glPushMatrix() ;
         glTranslatef(0.21, 0.3, 0) ;
         glPushMatrix() ;
             glRotatef(270, 0, 0, 1) ;
-            ojo.draw_fill() ;
+            ojo.draw(mode) ;
         glPopMatrix() ;
     glPopMatrix() ;
     glPopMatrix() ;

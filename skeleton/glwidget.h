@@ -86,7 +86,9 @@ protected:
 
 private:
   _window *Window;
-
+  bool animation;
+  bool translacion ;
+  bool apertura ;
   QTimer* timer ;
   _axis Axis;
   _tetrahedron Tetrahedron;

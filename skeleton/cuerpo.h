@@ -28,7 +28,7 @@ protected:
     _cube cube = _cube() ;
 public:
     _cuerpo();
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

@@ -27,9 +27,10 @@ protected:
 
     _cube cube = _cube() ;
 public:
+    float angle ;
     _antebrazo antebrazo = _antebrazo() ;
     _brazo();
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

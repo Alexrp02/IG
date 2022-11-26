@@ -24,6 +24,7 @@ class _object3D:public _basic_object3D
   public:
   vector<_vertex2i> Edges;
   vector<_vertex3ui> Triangles;
+  GLfloat* color = (GLfloat *) &_colors_ne::GREEN ;
 
   void draw_line();
   void draw_fill();

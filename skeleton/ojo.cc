@@ -24,13 +24,21 @@ _ojo::_ojo()
 {
 }
 
-void _ojo::draw_fill() {
+void _ojo::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
     glPushMatrix() ;
         glRotatef(90, 1, 0, 0) ;
         glColor3fv((GLfloat *) &GRAY) ;
-        cylinder.draw_fill() ;
+        if(mode=="FILL"){
+            cylinder.draw_fill() ;
+        }else if(mode=="LINE"){
+            cylinder.draw_line() ;
+        }else if(mode=="CHESS"){
+            cylinder.draw_chess() ;
+        }else if (mode=="POINT"){
+            cylinder.draw_point();
+        }
     glPopMatrix() ;
 
     glPushMatrix() ;
@@ -39,7 +47,15 @@ void _ojo::draw_fill() {
             glRotatef(90, 1, 0, 0) ;
             glScalef(0.7, 1, 0.7) ;
             glColor3fv((GLfloat *) &WHITE) ;
-            cylinder.draw_fill() ;
+            if(mode=="FILL"){
+                cylinder.draw_fill() ;
+            }else if(mode=="LINE"){
+                cylinder.draw_line() ;
+            }else if(mode=="CHESS"){
+                cylinder.draw_chess() ;
+            }else if (mode=="POINT"){
+                cylinder.draw_point();
+            }
         glPopMatrix();
     glPopMatrix();
 
@@ -49,7 +65,15 @@ void _ojo::draw_fill() {
             glRotatef(90, 1, 0, 0) ;
             glScalef(0.25, 1, 0.25) ;
             glColor3fv((GLfloat *) &BLACK) ;
-            cylinder.draw_fill() ;
+            if(mode=="FILL"){
+                cylinder.draw_fill() ;
+            }else if(mode=="LINE"){
+                cylinder.draw_line() ;
+            }else if(mode=="CHESS"){
+                cylinder.draw_chess() ;
+            }else if (mode=="POINT"){
+                cylinder.draw_point();
+            }
         glPopMatrix();
     glPopMatrix();
 }

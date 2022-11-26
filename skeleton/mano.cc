@@ -23,13 +23,21 @@ _mano::_mano()
     apertura = 40;
 }
 
-void _mano::draw_fill() {
+void _mano::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
     glPushMatrix() ;
         glScalef(0.1, 0.1, 0.1) ;
         glColor3fv((GLfloat *) &GRAY) ;
-        sphere.draw_fill() ;
+        if(mode=="FILL"){
+            sphere.draw_fill() ;
+        }else if(mode=="LINE"){
+            sphere.draw_line() ;
+        }else if(mode=="CHESS"){
+            sphere.draw_chess() ;
+        }else if (mode=="POINT"){
+            sphere.draw_point();
+        }
     glPopMatrix() ;
 
     glPushMatrix() ;
@@ -37,7 +45,7 @@ void _mano::draw_fill() {
         glPushMatrix() ;
             glTranslatef(0.05, 0, 0) ;
             glRotatef(apertura, 0, 0, 1) ;
-            dedo.draw_fill();
+            dedo.draw(mode) ;
         glPopMatrix() ;
     glPopMatrix() ;
 
@@ -46,7 +54,7 @@ void _mano::draw_fill() {
         glPushMatrix() ;
             glTranslatef(0.05, 0, 0) ;
             glRotatef(apertura, 0, 0, 1) ;
-            dedo.draw_fill();
+            dedo.draw(mode) ;
         glPopMatrix() ;
     glPopMatrix() ;
 
@@ -55,7 +63,7 @@ void _mano::draw_fill() {
         glPushMatrix() ;
             glTranslatef(0.05, 0, 0) ;
             glRotatef(apertura, 0, 0, 1) ;
-            dedo.draw_fill();
+            dedo.draw(mode) ;
         glPopMatrix() ;
     glPopMatrix() ;
 }

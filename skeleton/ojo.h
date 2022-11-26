@@ -27,7 +27,7 @@ protected:
     _cylinder cylinder = _cylinder(50, 0.2, 0.4) ;
 public:
     _ojo();
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

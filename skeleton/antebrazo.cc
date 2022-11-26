@@ -23,7 +23,7 @@ _antebrazo::_antebrazo()
     translacion=0 ;
 }
 
-void _antebrazo::draw_fill() {
+void _antebrazo::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
 //    glPushMatrix() ;
@@ -35,14 +35,23 @@ void _antebrazo::draw_fill() {
             glPushMatrix() ;
                 glScalef(1, 0.15, 0.15) ;
                 glColor3fv((GLfloat *) &GRAY) ;
-                cube.draw_fill() ;
+                if(mode=="FILL"){
+                    cube.draw_fill() ;
+                }else if(mode=="LINE"){
+                    cube.draw_line() ;
+                }else if(mode=="CHESS"){
+                    cube.draw_chess() ;
+                }else if (mode=="POINT"){
+                    cube.draw_point();
+                }
+
             glPopMatrix() ;
         glPopMatrix() ;
 
         glPushMatrix() ;
             glTranslatef(1.05, 0 ,0) ;
             glRotatef(-90, 0, 0, 1) ;
-            mano.draw_fill() ;
+            mano.draw(mode) ;
         glPopMatrix();
     glPopMatrix() ;
 //    glPopMatrix() ;

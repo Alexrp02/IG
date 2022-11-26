@@ -30,7 +30,7 @@ protected:
 public:
     _mano();
     float apertura ;
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

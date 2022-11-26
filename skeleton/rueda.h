@@ -28,7 +28,7 @@ protected:
     _cylinder cylinder = _cylinder(50, 0.4, 0.2) ;
 public:
     _rueda();
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

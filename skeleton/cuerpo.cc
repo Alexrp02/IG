@@ -23,13 +23,21 @@ _cuerpo::_cuerpo()
 {
 }
 
-void _cuerpo::draw_fill() {
+void _cuerpo::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
     glPushMatrix() ;
         glScalef(0.75, 0.75, 0.75) ;
         glColor3fv((GLfloat *) &GRAY) ;
-        cube.draw_fill() ;
+        if(mode=="FILL"){
+            cube.draw_fill() ;
+        }else if(mode=="LINE"){
+            cube.draw_line() ;
+        }else if(mode=="CHESS"){
+            cube.draw_chess() ;
+        }else if (mode=="POINT"){
+            cube.draw_point();
+        }
     glPopMatrix() ;
 }
 

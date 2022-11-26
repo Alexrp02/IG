@@ -34,7 +34,7 @@ public:
     _robot();
     _cabeza cabeza = _cabeza() ;
     _brazo brazo = _brazo () ;
-    void draw_fill();
+    void draw(string mode);
 };
 
 #endif

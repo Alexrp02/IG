@@ -23,35 +23,34 @@ _robot::_robot()
 {
 }
 
-void _robot::draw_fill() {
+void _robot::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
     //Cuerpo
-    cuerpo.draw_fill() ;
+    cuerpo.draw(mode) ;
 
     //Cabeza
     glPushMatrix() ;
         glTranslatef(0, 0.375, 0) ;
         glScalef(0.8, 0.8, 0.8) ;
-        cabeza.draw_fill() ;
+        cabeza.draw(mode) ;
     glPopMatrix() ;
-\
+
     //Brazo derecho
     glPushMatrix() ;
     glTranslatef(0.375, 0.350, 0) ;
     glPushMatrix() ;
         glScalef(0.4, 0.5, 0.5) ;
-        brazo.draw_fill() ;
+        brazo.draw(mode) ;
     glPopMatrix() ;
     glPopMatrix() ;
 
     //Brazo izquierdo
     glPushMatrix() ;
-    glTranslatef(-0.375, 0.350, 0) ;
+    glTranslatef(-0.475, 0.350, 0) ;
     glPushMatrix() ;
         glScalef(0.4, 0.5, 0.5) ;
-        glRotatef(180, 0, 0, 1) ;
-        brazo.draw_fill() ;
+        brazo.draw(mode) ;
     glPopMatrix() ;
     glPopMatrix() ;
 
@@ -59,7 +58,7 @@ void _robot::draw_fill() {
         glTranslatef(-0.375, -0.25, 0) ;
         glPushMatrix() ;
             glScalef(0.5, 0.5, 0.5) ;
-            rueda.draw_fill() ;
+            rueda.draw(mode) ;
         glPopMatrix() ;
     glPopMatrix() ;
 
@@ -68,7 +67,7 @@ void _robot::draw_fill() {
         glRotatef(180, 0, 0, 1) ;
         glPushMatrix() ;
             glScalef(0.5, 0.5, 0.5) ;
-            rueda.draw_fill() ;
+            rueda.draw(mode) ;
         glPopMatrix() ;
     glPopMatrix() ;
 

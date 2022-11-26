@@ -9,7 +9,6 @@ HEADERS = \
   cuerpo.h \
   cylinder.h \
   dedo.h \
-  hierarchical.h \
   mano.h \
   object3d.h \
   axis.h \
@@ -18,6 +17,7 @@ HEADERS = \
   robot.h \
   rueda.h \
   sphere.h \
+  hierarchical.h \
   tetrahedron.h \
   glwidget.h \
   window.h \
@@ -33,7 +33,6 @@ SOURCES = \
   cuerpo.cc \
   cylinder.cc \
   dedo.cc \
-  hierarchical.cc \
   mano.cc \
   object3d.cc \
   axis.cc \

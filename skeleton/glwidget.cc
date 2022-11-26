@@ -28,18 +28,35 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
   connect(timer, SIGNAL(timeout()), this, SLOT(idle_event())) ;
   timer->start(0) ;
   giro = false ;
+  animation = true ;
+  translacion=false ;
+  apertura = false ;
   setMinimumSize(300, 300);
   setFocusPolicy(Qt::StrongFocus);
 }
 
 void _gl_widget::idle_event() {
-//    Hierarchical.x+=1 ;
+    if (!animation) return;
+    if(Robot.brazo.antebrazo.translacion<=-1+0.01)
+        translacion = false ;
+    else if(Robot.brazo.antebrazo.translacion>=0-0.01)
+        translacion = true ;
+    translacion ? Robot.brazo.antebrazo.translacion -= 0.01 : Robot.brazo.antebrazo.translacion += 0.01 ; ;
 
-    if(Robot.cabeza.rotacion >= 30) {
+    if (Robot.brazo.angle <= -360) Robot.brazo.angle+= 360 ;
+    Robot.brazo.angle -= 1;
+
+    if (Robot.brazo.antebrazo.mano.apertura >= 60)
+        apertura = false ;
+    else if (Robot.brazo.antebrazo.mano.apertura <= 10)
+        apertura = true ;
+    apertura ? Robot.brazo.antebrazo.mano.apertura+= 1 : Robot.brazo.antebrazo.mano.apertura-= 1 ; ;
+
+    if(Robot.cabeza.rotacion >= 30)
         giro=true;
-    }else if (Robot.cabeza.rotacion <= -30) {
+    else if (Robot.cabeza.rotacion <= -30)
         giro = false ;
-    }
+
     giro ? Robot.cabeza.rotacion -= 0.5 : Robot.cabeza.rotacion += 0.5 ;
 //    Dedo.x += 1 ;
     update() ;
@@ -64,14 +81,30 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_HIERARCHICAL;break;
 
-//  case Qt::Key_A:Hierarchical.x+=0.1;break;
+  case Qt::Key_A:animation=!animation;break;
   case Qt::Key_Q:
-      if(Brazo.antebrazo.translacion>-1+0.01)
-          Brazo.antebrazo.translacion -= 0.01;
+      if(Robot.brazo.antebrazo.translacion>-1+0.01)
+          Robot.brazo.antebrazo.translacion -= 0.01;
       break;
   case Qt::Key_W:
-      if(Brazo.antebrazo.translacion<0-0.01)
-          Brazo.antebrazo.translacion += 0.01 ;
+      if(Robot.brazo.antebrazo.translacion<0-0.01)
+          Robot.brazo.antebrazo.translacion += 0.01 ;
+      break;
+
+  case Qt::Key_S:
+      if (Robot.brazo.angle <= -360) Robot.brazo.angle+= 360 ;
+      Robot.brazo.angle -= 3; break;
+  case Qt::Key_D:
+      if (Robot.brazo.angle >= 360) Robot.brazo.angle-= 360 ;
+      Robot.brazo.angle += 3 ; break;
+
+  case Qt::Key_Z:
+      if (Robot.brazo.antebrazo.mano.apertura <= 60)
+          Robot.brazo.antebrazo.mano.apertura+= 1 ;
+      break;
+  case Qt::Key_X:
+      if (Robot.brazo.antebrazo.mano.apertura >= 10)
+          Robot.brazo.antebrazo.mano.apertura-= 1 ;
       break;
   case Qt::Key_P:Draw_point=!Draw_point;break;
   case Qt::Key_L:Draw_line=!Draw_line;break;
@@ -162,6 +195,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_point();break;
     case OBJECT_CYLINDER:Cylinder.draw_point();break;
     case OBJECT_SPHERE:Sphere.draw_point();break;
+    case OBJECT_HIERARCHICAL:Robot.draw("POINT");break;
     default:break;
     }
   }
@@ -176,6 +210,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_line();break;
     case OBJECT_CYLINDER:Cylinder.draw_line();break;
     case OBJECT_SPHERE:Sphere.draw_line();break;
+    case OBJECT_HIERARCHICAL:Robot.draw("LINE");break;
     default:break;
     }
   }
@@ -189,7 +224,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_fill();break;
     case OBJECT_CYLINDER:Cylinder.draw_fill();break;
     case OBJECT_SPHERE:Sphere.draw_fill();break;
-//    case OBJECT_HIERARCHICAL:Hierarchical.draw_fill();break;
+    case OBJECT_HIERARCHICAL:Robot.draw("FILL");break;
     default:break;
     }
   }
@@ -202,7 +237,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_chess();break;
     case OBJECT_CYLINDER:Cylinder.draw_chess();break;
     case OBJECT_SPHERE:Sphere.draw_chess();break;
-    case OBJECT_HIERARCHICAL:Robot.draw_fill();break;
+    case OBJECT_HIERARCHICAL:Robot.draw("CHESS");break;
     default:break;
     }
   }

@@ -22,6 +22,7 @@ void _object3D::draw_line()
 {
     int Vertex1;
     int Vertex2;
+    glColor3fv(color) ;
     glBegin(GL_LINES) ;
     for (unsigned int i = 0; i < Edges.size(); i++) {
         Vertex1 = Edges[i]._0 ;

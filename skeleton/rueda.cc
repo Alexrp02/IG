@@ -24,7 +24,7 @@ _rueda::_rueda()
 {
 }
 
-void _rueda::draw_fill() {
+void _rueda::draw(string mode) {
     glMatrixMode(GL_MODELVIEW) ;
 
 
@@ -33,13 +33,29 @@ void _rueda::draw_fill() {
     glPushMatrix() ;
         glRotatef(90,0,0,1) ;
         glColor3fv((GLfloat *) &BLACK) ;
-        cylinder.draw_fill() ;
+        if(mode=="FILL"){
+            cylinder.draw_fill() ;
+        }else if(mode=="LINE"){
+            cylinder.draw_line() ;
+        }else if(mode=="CHESS"){
+            cylinder.draw_chess() ;
+        }else if (mode=="POINT"){
+            cylinder.draw_point();
+        }
 
         glPushMatrix() ;
             glScalef(0.2, 2, 0.2) ;
             glTranslatef(0,-0.04,0) ;
             glColor3fv((GLfloat *) &GRAY) ;
-            cylinder.draw_fill() ;
+            if(mode=="FILL"){
+                cylinder.draw_fill() ;
+            }else if(mode=="LINE"){
+                cylinder.draw_line() ;
+            }else if(mode=="CHESS"){
+                cylinder.draw_chess() ;
+            }else if (mode=="POINT"){
+                cylinder.draw_point();
+            }
         glPopMatrix();
     glPopMatrix();
     glPopMatrix() ;

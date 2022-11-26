@@ -10,11 +10,8 @@
 #ifndef HIERARCHICAL_H
 #define HIERARCHICAL_H
 
-#include "cube.h"
+
 #include "object3d.h"
-#include "sphere.h"
-
-
 
 /*****************************************************************************//**
  *
@@ -22,16 +19,10 @@
  *
  *****************************************************************************/
 
-class _hierarchical:public _object3D
+class _hierarchical : public _object3D
 {
-protected:
-    _cube cube ;
-    _sphere sphere = _sphere(50, 1.0, 80);
 public:
-    _hierarchical();
-    float x ;
-    void draw_fill();
-    void patadraw() ;
+    void draw(string mode, string line_color);
 };
 
 #endif
