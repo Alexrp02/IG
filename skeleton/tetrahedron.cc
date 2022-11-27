@@ -35,10 +35,15 @@ _tetrahedron::_tetrahedron(float Size)
   Edges[5] = _vertex2i(3,1) ;
 
   Triangles.resize(4);
+  faceNormals.resize(4) ; //Por cada triangulo una normal.
 
   Triangles[0]=_vertex3ui(0,1,3);
+  faceNormals[0] = calculate_normalized_normal(Vertices[0], Vertices[1], Vertices[3]);
   Triangles[1]=_vertex3ui(1,2,3);
+  faceNormals[1] = calculate_normalized_normal(Vertices[1], Vertices[2], Vertices[3]);
   Triangles[2]=_vertex3ui(2,0,3);
+  faceNormals[2] = calculate_normalized_normal(Vertices[2], Vertices[0], Vertices[3]);
   Triangles[3]=_vertex3ui(0,2,1);
+  faceNormals[3] = calculate_normalized_normal(Vertices[0], Vertices[2], Vertices[1]);
 }
 

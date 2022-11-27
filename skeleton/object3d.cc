@@ -8,6 +8,7 @@
 
 
 #include "object3d.h"
+#include<cmath>
 
 using namespace _colors_ne;
 
@@ -43,12 +44,14 @@ void _object3D::draw_line()
 void _object3D::draw_fill()
 {
   int Vertex_1,Vertex_2,Vertex_3;
-  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
+  glPolygonMode(GL_FRONT, GL_FILL) ;
   glBegin(GL_TRIANGLES) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {
       Vertex_1 = Triangles[i]._0  ;
       Vertex_2 = Triangles[i]._1  ;
       Vertex_3 = Triangles[i]._2  ;
+      glNormal3f(faceNormals[i].x, faceNormals[i].y, faceNormals[i].z) ;
+      glMaterialf(GL_FRONT_FACE,GL_SHININESS, 1) ;
       glVertex3f(Vertices[Vertex_1].x, Vertices[Vertex_1].y, Vertices[Vertex_1].z);
       glVertex3f(Vertices[Vertex_2].x, Vertices[Vertex_2].y, Vertices[Vertex_2].z);
       glVertex3f(Vertices[Vertex_3].x, Vertices[Vertex_3].y, Vertices[Vertex_3].z);
@@ -80,4 +83,22 @@ void _object3D::draw_chess()
         color = !color ;
     }
     glEnd();
+}
+
+_vertex3f _object3D::calculate_normalized_normal(_vertex3f v1, _vertex3f v2, _vertex3f v3) {
+    _vertex3f vertex1 = _vertex3f(v2.x-v1.x, v2.y-v1.y, v2.z-v1.z);
+    _vertex3f vertex2 = _vertex3f(v3.x-v1.x, v3.y-v1.y, v3.z-v1.z);
+    float x = vertex1.y*vertex2.z - vertex1.z*vertex2.y ;
+    float y = -vertex1.x*vertex2.z + vertex1.z*vertex2.x ;
+    float z = vertex1.x*vertex2.y - vertex1.y*vertex2.x ;
+    _vertex3f sol = _vertex3f(x,y,z);
+
+    sol.x = sol.x/calculate_module(sol) ;
+    sol.y = sol.y/calculate_module(sol) ;
+    sol.z = sol.z/calculate_module(sol) ;
+    return sol ;
+}
+
+float _object3D::calculate_module(_vertex3f v) {
+    return (sqrt(pow(v.x, 2) + pow(v.y,2) + pow(v.z,2))) ;
 }

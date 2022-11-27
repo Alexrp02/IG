@@ -135,6 +135,15 @@ void _gl_widget::clear_window()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
+void _gl_widget::change_light()
+{
+  glMatrixMode(GL_MODELVIEW);
+  glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
+  GLfloat ambient[4] = {0.f,0.5f,0.5f, 1.f};
+  glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+  glEnable(GL_LIGHT0);
+}
+
 
 
 /*****************************************************************************//**
@@ -257,6 +266,7 @@ void _gl_widget::paintGL()
   clear_window();
   change_projection();
   change_observer();
+  change_light() ;
   draw_objects();
 }
 
@@ -306,6 +316,9 @@ void _gl_widget::initializeGL()
 
   glClearColor(1.0,1.0,1.0,1.0);
   glEnable(GL_DEPTH_TEST);;
+  glEnable(GL_LIGHT0) ;
+  glEnable(GL_LIGHTING);
+  glEnable(GL_COLOR_MATERIAL);
 
   Observer_angle_x=0;
   Observer_angle_y=0;

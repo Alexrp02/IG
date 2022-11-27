@@ -69,6 +69,7 @@ public:
   void clear_window();
   void change_projection();
   void change_observer();
+  void change_light();
 
   void draw_axis();
   void draw_objects();
@@ -88,6 +89,7 @@ private:
   _window *Window;
   bool animation;
   bool translacion ;
+  GLfloat Light_position [4] = {2,2,-2,0} ;
   bool apertura ;
   QTimer* timer ;
   _axis Axis;
