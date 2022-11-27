@@ -89,13 +89,13 @@ private:
   _window *Window;
   bool animation;
   bool translacion ;
-  GLfloat Light_position [4] = {2,2,-2,0} ;
+  GLfloat Light_position [4] = {1.0, 1.0, 1.0, 0.0} ;
   bool apertura ;
   QTimer* timer ;
   _axis Axis;
   _tetrahedron Tetrahedron;
   _cube Cube;
-  _ply_object Ply  = _ply_object("../skeleton/ply_models/ant.ply");
+  _ply_object Ply  = _ply_object("../skeleton/ply_models/beethoven.ply");
   _cone Cone = _cone(100, 0.5, 1.0);
   _cylinder Cylinder = _cylinder(100, 1.0, 1.0) ;
   _sphere Sphere = _sphere(50, 1.0, 100) ;

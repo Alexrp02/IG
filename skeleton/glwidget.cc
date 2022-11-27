@@ -137,11 +137,15 @@ void _gl_widget::clear_window()
 
 void _gl_widget::change_light()
 {
-  glMatrixMode(GL_MODELVIEW);
-  glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
-  GLfloat ambient[4] = {0.f,0.5f,0.5f, 1.f};
-  glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
-  glEnable(GL_LIGHT0);
+
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0) ;
+    glEnable(GL_COLOR_MATERIAL);
+  //  glMatrixMode(GL_MODELVIEW);
+    glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
+//      GLfloat ambient[4] = {0.f,0.5f,0.5f, 1.f};
+//      glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 }
 
 
@@ -315,10 +319,12 @@ void _gl_widget::initializeGL()
   std::cerr << "Max texture size: " << Max_texture_size << "\n";
 
   glClearColor(1.0,1.0,1.0,1.0);
-  glEnable(GL_DEPTH_TEST);;
-  glEnable(GL_LIGHT0) ;
-  glEnable(GL_LIGHTING);
-  glEnable(GL_COLOR_MATERIAL);
+//  glPushMatrix() ;
+//  glLoadIdentity() ;
+
+//  glPopMatrix() ;
+//  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 90.0) ;
+
 
   Observer_angle_x=0;
   Observer_angle_y=0;

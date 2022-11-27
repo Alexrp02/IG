@@ -53,17 +53,19 @@ _sphere::_sphere(int n, float r, int revolutions)
             int v1 = ((n-2)*j+i)%((n-2)*revolutions);
             int v2 = ((n-2)*(1+j)+i)%((n-2)*revolutions) ;
             int v3 = (1+(n-2)*j+i)%((n-2)*revolutions) ;
-            faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+
             Triangles[pos] = _vertex3ui(v1, v2, v3) ;
+            faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[v2], Vertices[v1]) ;
             pos++ ;
-            faceNormals[pos] = calculate_normalized_normal(Vertices[(v1+(n-2))%((n-2)*revolutions)], Vertices[(v2+1)%((n-2)*revolutions)], Vertices[v3]) ;
+
             Triangles[pos] = _vertex3ui((v1+(n-2))%((n-2)*revolutions), (v2+1)%((n-2)*revolutions), v3) ;
+            faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[(v2+1)%((n-2)*revolutions)], Vertices[(v1+(n-2))%((n-2)*revolutions)]) ;
             pos++ ;
         }
     }
     //Cubierta superior
     for (int i=0 ; i<revolutions ; i++) {
-        faceNormals[pos] = calculate_normalized_normal(Vertices[((n-3)+(n-2)*i)%((n-2)*revolutions)], Vertices[((n-3)+(n-2)*(i+1))%((n-2)*revolutions)], Vertices[Vertices.size()-2]) ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[Vertices.size()-2], Vertices[((n-3)+(n-2)*(i+1))%((n-2)*revolutions)], Vertices[((n-3)+(n-2)*i)%((n-2)*revolutions)]) ;
         Triangles[pos] = _vertex3ui(((n-3)+(n-2)*i)%((n-2)*revolutions), ((n-3)+(n-2)*(i+1))%((n-2)*revolutions), Vertices.size()-2) ;
         pos++ ;
     }

@@ -41,6 +41,7 @@ _cylinder::_cylinder(int n, float r, float h)
     pos++ ;
 
     Triangles.resize(4*n) ;
+    faceNormals.resize(4*n) ;
 
 //    for(int i=0 ; i<2 ; i++) {
 //        for (int j=0 ; j<n ; j++){
@@ -54,16 +55,19 @@ _cylinder::_cylinder(int n, float r, float h)
     pos=0 ;
     for (int i=0 ; i<n ; i++) {
         for (int j=0 ; j<2 ; j++) {
+            faceNormals[pos] = calculate_normalized_normal(Vertices[1+2*i], Vertices[(2*i+j+2)%(2*n)], Vertices[(2*i+j*2)%(2*n)]) ;
             Triangles[pos] = _vertex3ui((2*i+j*2)%(2*n), (2*i+j+2)%(2*n), 1+2*i) ;
             pos++ ;
         }
     }
 
     for (int i=0 ; i<n ; i++) {
+        faceNormals[pos] = calculate_normalized_normal(Vertices[Vertices.size()-2], Vertices[(2*i+3)%(n*2)], Vertices[i*2+1]) ;
         Triangles[pos] = _vertex3ui(i*2+1, (2*i+3)%(n*2), Vertices.size()-2) ;
         pos++ ;
     }
     for (int i=0 ; i<n ; i++) {
+        faceNormals[pos] = calculate_normalized_normal(Vertices[i*2], Vertices[(i*2+2)%(n*2)], Vertices[Vertices.size()-1]) ;
         Triangles[pos] = _vertex3ui(Vertices.size()-1, (i*2+2)%(n*2), i*2);
         pos++;
     }

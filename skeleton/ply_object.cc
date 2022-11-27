@@ -26,12 +26,14 @@ _ply_object::_ply_object(const string &file_name)
     reader.read(Coordinates,Positions) ;
     reader.close() ;
     Vertices.resize(Coordinates.size()/3) ;
+    faceNormals.resize(Positions.size()/3) ;
     Triangles.resize(Positions.size()/3) ;
     for (unsigned int i=0 ; i<Coordinates.size() ; i+=3) {
         Vertices[i/3] = _vertex3f(Coordinates[i] , Coordinates[i+1], Coordinates[i+2]) ;
     }
 
     for (unsigned int i=0 ; i<Positions.size() ; i+=3){
+        faceNormals[i/3] = calculate_normalized_normal(Vertices[Positions[i]], Vertices[Positions[i+1]], Vertices[Positions[i+2]]) ;
         Triangles[i/3] = _vertex3ui(Positions[i] , Positions[i+1], Positions[i+2]) ;
     }
 

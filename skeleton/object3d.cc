@@ -44,7 +44,7 @@ void _object3D::draw_line()
 void _object3D::draw_fill()
 {
   int Vertex_1,Vertex_2,Vertex_3;
-  glPolygonMode(GL_FRONT, GL_FILL) ;
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
   glBegin(GL_TRIANGLES) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {
       Vertex_1 = Triangles[i]._0  ;
@@ -92,10 +92,11 @@ _vertex3f _object3D::calculate_normalized_normal(_vertex3f v1, _vertex3f v2, _ve
     float y = -vertex1.x*vertex2.z + vertex1.z*vertex2.x ;
     float z = vertex1.x*vertex2.y - vertex1.y*vertex2.x ;
     _vertex3f sol = _vertex3f(x,y,z);
+    float module = calculate_module(sol) ;
 
-    sol.x = sol.x/calculate_module(sol) ;
-    sol.y = sol.y/calculate_module(sol) ;
-    sol.z = sol.z/calculate_module(sol) ;
+    sol.x = sol.x/module ;
+    sol.y = sol.y/module ;
+    sol.z = sol.z/module ;
     return sol ;
 }
 

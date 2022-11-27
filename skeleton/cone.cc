@@ -39,6 +39,7 @@ _cone::_cone(int n, float r, float h)
     pos++ ;
 
     Triangles.resize(2*n) ;
+    faceNormals.resize(2*n) ;
     pos=0;
 
 //    for(int i=0 ; i<2 ; i++) {
@@ -50,10 +51,12 @@ _cone::_cone(int n, float r, float h)
 //        }
 //    }
     for (int i=0 ; i<n ; i++) {
+        faceNormals[pos] = calculate_normalized_normal(Vertices[Vertices.size()-2], Vertices[(i+1)%n], Vertices[i%n]) ;
         Triangles[pos] = _vertex3ui(i%n, (i+1)%n, Vertices.size()-2) ;
         pos++ ;
     }
     for (int i=0 ; i<n ; i++) {
+        faceNormals[pos] = calculate_normalized_normal(Vertices[i%n], Vertices[(i+1)%n], Vertices[Vertices.size()-1]) ;
         Triangles[pos] = _vertex3ui(Vertices.size()-1, (i+1)%n, i%n);
         pos++;
     }
