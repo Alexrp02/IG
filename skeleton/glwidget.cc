@@ -270,8 +270,8 @@ void _gl_widget::paintGL()
   clear_window();
   change_projection();
   change_observer();
-  change_light() ;
   draw_objects();
+  change_light() ;
 }
 
 

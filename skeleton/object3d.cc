@@ -24,6 +24,7 @@ void _object3D::draw_line()
     int Vertex1;
     int Vertex2;
     glColor3fv(color) ;
+    glDisable(GL_LIGHTING) ;
     glBegin(GL_LINES) ;
     for (unsigned int i = 0; i < Edges.size(); i++) {
         Vertex1 = Edges[i]._0 ;
@@ -32,6 +33,7 @@ void _object3D::draw_line()
         glVertex3f(Vertices[Vertex2].x, Vertices[Vertex2].y, Vertices[Vertex2].z);
     }
     glEnd();
+    glEnable(GL_LIGHTING) ;
 }
 
 
@@ -44,14 +46,14 @@ void _object3D::draw_line()
 void _object3D::draw_fill()
 {
   int Vertex_1,Vertex_2,Vertex_3;
-  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
+  glPolygonMode(GL_FRONT, GL_FILL) ;
   glBegin(GL_TRIANGLES) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {
       Vertex_1 = Triangles[i]._0  ;
       Vertex_2 = Triangles[i]._1  ;
       Vertex_3 = Triangles[i]._2  ;
       glNormal3f(faceNormals[i].x, faceNormals[i].y, faceNormals[i].z) ;
-      glMaterialf(GL_FRONT_FACE,GL_SHININESS, 1) ;
+//      glMaterialf(GL_FRONT,GL_SHININESS, 128) ;
       glVertex3f(Vertices[Vertex_1].x, Vertices[Vertex_1].y, Vertices[Vertex_1].z);
       glVertex3f(Vertices[Vertex_2].x, Vertices[Vertex_2].y, Vertices[Vertex_2].z);
       glVertex3f(Vertices[Vertex_3].x, Vertices[Vertex_3].y, Vertices[Vertex_3].z);
@@ -71,6 +73,7 @@ void _object3D::draw_chess()
     int Vertex_1,Vertex_2,Vertex_3;
     bool color = true;
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
+    glDisable(GL_LIGHTING) ;
     glBegin(GL_TRIANGLES) ;
     for(unsigned int i=0 ; i<Triangles.size() ; i++) {
         color ? glColor3fv((GLfloat *) &RED) : glColor3fv((GLfloat *) &GREEN);
@@ -83,6 +86,7 @@ void _object3D::draw_chess()
         color = !color ;
     }
     glEnd();
+    glEnable(GL_LIGHTING) ;
 }
 
 _vertex3f _object3D::calculate_normalized_normal(_vertex3f v1, _vertex3f v2, _vertex3f v3) {

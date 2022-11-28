@@ -42,6 +42,7 @@ _axis::_axis(float Size)
 void _axis::draw_line()
 {
   glLineWidth(1);
+  glDisable(GL_LIGHTING) ;
   glBegin(GL_LINES);
   // eje X, color rojo
   glColor3fv((GLfloat *) &RED);
@@ -56,6 +57,7 @@ void _axis::draw_line()
   glVertex3fv((GLfloat *) &Vertices[4]);
   glVertex3fv((GLfloat *) &Vertices[5]);
   glEnd();
+  glEnable(GL_LIGHTING) ;
 }
 
 
