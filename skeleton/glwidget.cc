@@ -33,6 +33,8 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
   apertura = false ;
   setMinimumSize(300, 300);
   setFocusPolicy(Qt::StrongFocus);
+  std::cout << Window1->width() << endl;
+  std::cout << Window1->height() << endl;
 }
 
 void _gl_widget::idle_event() {
@@ -116,11 +118,16 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_Up:Observer_angle_x-=ANGLE_STEP;break;
   case Qt::Key_Down:Observer_angle_x+=ANGLE_STEP;break;
   case Qt::Key_PageUp:Observer_distance*=1.2;break;
-  case Qt::Key_PageDown:Observer_distance/=1.2;break;
+  case Qt::Key_PageDown:Observer_distance/=1.2;break;    
+
   }
 
   update();
 }
+
+//void _gl_widget::mouseMoveEvent(QKeyEvent *Keyevent) {
+
+//}
 
 
 /*****************************************************************************//**
@@ -164,7 +171,7 @@ void _gl_widget::change_projection()
 
   // formato(x_minimo,x_maximo, y_minimo, y_maximo,Front_plane, plano_traser)
   // Front_plane>0  Back_plane>PlanoDelantero)
-  glFrustum(X_MIN,X_MAX,Y_MIN,Y_MAX,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
+  glFrustum(-x_size,x_size,-y_size,y_size,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
 }
 
 
@@ -284,7 +291,14 @@ void _gl_widget::paintGL()
 
 void _gl_widget::resizeGL(int Width1, int Height1)
 {
+//  std::cout << Width1 << endl ;
+//  std::cout << Height1 << endl ;
+//  float aspectRatio = Width1/Height1 ;
+  const float ar = (float) Height1 / (float) Width1;
+  y_size = X_MAX*ar ;
+  change_projection() ;
   glViewport(0,0,Width1,Height1);
+  std::cout << ar << endl ;
 }
 
 
@@ -330,6 +344,8 @@ void _gl_widget::initializeGL()
   Observer_angle_y=0;
   Observer_distance=DEFAULT_DISTANCE;
 
+  x_size = X_MAX ;
+  y_size = Y_MAX ;
   Draw_point=false;
   Draw_line=true;
   Draw_fill=false;

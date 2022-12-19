@@ -66,6 +66,8 @@ Q_OBJECT
 public:
   _gl_widget(_window *Window1);
 
+  float x_size ;
+  float y_size ;
   void clear_window();
   void change_projection();
   void change_observer();
@@ -95,7 +97,7 @@ private:
   _axis Axis;
   _tetrahedron Tetrahedron;
   _cube Cube;
-  _ply_object Ply  = _ply_object("../skeleton/ply_models/beethoven.ply");
+  _ply_object Ply  = _ply_object("../skeleton/ply_models/happy.ply");
   _cone Cone = _cone(100, 0.5, 1.0);
   _cylinder Cylinder = _cylinder(100, 1.0, 1.0) ;
   _sphere Sphere = _sphere(50, 1.0, 100) ;
