@@ -39,6 +39,8 @@ _sphere::_sphere(int n, float r, int revolutions)
     //(n-1)*2*revolutions
     Triangles.resize(revolutions*(2+(n-3)*2)) ;
     faceNormals.resize(revolutions*(2+(n-3)*2)) ;
+    pointNormals.resize((n-2)*revolutions + 2) ;
+    numberOfNormals.resize((n-2)*revolutions + 2) ;
     //Lateral
     pos=0 ;
     for (int i=0 ; i<n-3 ; i++) {
@@ -56,13 +58,43 @@ _sphere::_sphere(int n, float r, int revolutions)
 
             Triangles[pos] = _vertex3ui(v1, v2, v3) ;
             faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[v2], Vertices[v1]) ;
+            pointNormals[v1].x += faceNormals[pos].x ;
+            pointNormals[v1].y += faceNormals[pos].y ;
+            pointNormals[v1].z += faceNormals[pos].z ;
+            numberOfNormals[v1] += 1 ;
+
+            pointNormals[v2].x += faceNormals[pos].x ;
+            pointNormals[v2].y += faceNormals[pos].y ;
+            pointNormals[v2].z += faceNormals[pos].z ;
+            numberOfNormals[v2] += 1 ;
+
+            pointNormals[v3].x += faceNormals[pos].x ;
+            pointNormals[v3].y += faceNormals[pos].y ;
+            pointNormals[v3].z += faceNormals[pos].z ;
+            numberOfNormals[v3] += 1 ;
             pos++ ;
 
             Triangles[pos] = _vertex3ui((v1+(n-2))%((n-2)*revolutions), (v2+1)%((n-2)*revolutions), v3) ;
             faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[(v2+1)%((n-2)*revolutions)], Vertices[(v1+(n-2))%((n-2)*revolutions)]) ;
+            pointNormals[v1].x += faceNormals[pos].x ;
+            pointNormals[v1].y += faceNormals[pos].y ;
+            pointNormals[v1].z += faceNormals[pos].z ;
+            numberOfNormals[v1] += 1 ;
+
+            pointNormals[v2].x += faceNormals[pos].x ;
+            pointNormals[v2].y += faceNormals[pos].y ;
+            pointNormals[v2].z += faceNormals[pos].z ;
+            numberOfNormals[v2] += 1 ;
+
+            pointNormals[v3].x += faceNormals[pos].x ;
+            pointNormals[v3].y += faceNormals[pos].y ;
+            pointNormals[v3].z += faceNormals[pos].z ;
+            numberOfNormals[v3] += 1 ;
             pos++ ;
         }
     }
+
+
     //Cubierta superior
     for (int i=0 ; i<revolutions ; i++) {
         faceNormals[pos] = calculate_normalized_normal(Vertices[Vertices.size()-2], Vertices[((n-3)+(n-2)*(i+1))%((n-2)*revolutions)], Vertices[((n-3)+(n-2)*i)%((n-2)*revolutions)]) ;
@@ -74,6 +106,11 @@ _sphere::_sphere(int n, float r, int revolutions)
         faceNormals[pos] = calculate_normalized_normal(Vertices[((n-2)*i)%((n-2)*revolutions)], Vertices[((n-2)*(i+1))%((n-2)*revolutions)], Vertices[Vertices.size()-1]) ;
         Triangles[pos] = _vertex3ui(((n-2)*i)%((n-2)*revolutions), ((n-2)*(i+1))%((n-2)*revolutions), Vertices.size()-1) ;
         pos++ ;
+    }
+    for (int i=0 ; i< pointNormals.size() ; i++) {
+        pointNormals[i].x /= numberOfNormals[i];
+        pointNormals[i].y /= numberOfNormals[i] ;
+        pointNormals[i].z /= numberOfNormals[i] ;
     }
 
     Edges.resize(Triangles.size()*3) ;

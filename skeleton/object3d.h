@@ -25,6 +25,8 @@ class _object3D:public _basic_object3D
   vector<_vertex2i> Edges;
   vector<_vertex3ui> Triangles;
   vector<_vertex3f> faceNormals;
+  vector<_vertex3f> pointNormals;
+  vector<int> numberOfNormals;
   GLfloat* color = (GLfloat *) &_colors_ne::GREEN ;
 
   void draw_line();

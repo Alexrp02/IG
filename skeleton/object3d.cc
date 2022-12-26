@@ -52,10 +52,13 @@ void _object3D::draw_fill()
       Vertex_1 = Triangles[i]._0  ;
       Vertex_2 = Triangles[i]._1  ;
       Vertex_3 = Triangles[i]._2  ;
-      glNormal3f(faceNormals[i].x, faceNormals[i].y, faceNormals[i].z) ;
+//      glNormal3f(faceNormals[i].x, faceNormals[i].y, faceNormals[i].z) ;
 //      glMaterialf(GL_FRONT,GL_SHININESS, 128) ;
+      glNormal3f(pointNormals[Vertex_1].x, pointNormals[Vertex_1].y, pointNormals[Vertex_1].z) ;
       glVertex3f(Vertices[Vertex_1].x, Vertices[Vertex_1].y, Vertices[Vertex_1].z);
+      glNormal3f(pointNormals[Vertex_2].x, pointNormals[Vertex_2].y, pointNormals[Vertex_2].z) ;
       glVertex3f(Vertices[Vertex_2].x, Vertices[Vertex_2].y, Vertices[Vertex_2].z);
+      glNormal3f(pointNormals[Vertex_3].x, pointNormals[Vertex_3].y, pointNormals[Vertex_3].z) ;
       glVertex3f(Vertices[Vertex_3].x, Vertices[Vertex_3].y, Vertices[Vertex_3].z);
   }
   glEnd();
