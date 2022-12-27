@@ -99,5 +99,6 @@ _cube::_cube(float Size)
       numberOfNormals[Triangles[i].y] += 1;
       numberOfNormals[Triangles[i].z] += 1;
   }
+  averageNormal() ;
 }
 

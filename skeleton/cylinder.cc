@@ -76,13 +76,37 @@ _cylinder::_cylinder(int n, float r, float h)
     }
 
     for (int i=0 ; i<n ; i++) {
-        faceNormals[pos] = calculate_normalized_normal(Vertices[Vertices.size()-2], Vertices[(2*i+3)%(n*2)], Vertices[i*2+1]) ;
-        Triangles[pos] = _vertex3ui(i*2+1, (2*i+3)%(n*2), Vertices.size()-2) ;
+        int v1 = Vertices.size()-2 ;
+        int v2 = (2*i+3)%(n*2) ;
+        int v3 = i*2+1 ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        pointNormals[v1] += faceNormals[pos] ;
+        numberOfNormals[v1] ++ ;
+
+        pointNormals[v2] += faceNormals[pos] ;
+        numberOfNormals[v2] ++ ;
+
+        pointNormals[v3] += faceNormals[pos] ;
+        numberOfNormals[v3] ++ ;
+
+        Triangles[pos] = _vertex3ui(v1, v2, v3) ;
         pos++ ;
     }
     for (int i=0 ; i<n ; i++) {
-        faceNormals[pos] = calculate_normalized_normal(Vertices[i*2], Vertices[(i*2+2)%(n*2)], Vertices[Vertices.size()-1]) ;
-        Triangles[pos] = _vertex3ui(Vertices.size()-1, (i*2+2)%(n*2), i*2);
+        int v1 = i*2 ;
+        int v2 = (i*2+2)%(n*2) ;
+        int v3 = Vertices.size()-1 ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        pointNormals[v1] += faceNormals[pos] ;
+        numberOfNormals[v1] ++ ;
+
+        pointNormals[v2] += faceNormals[pos] ;
+        numberOfNormals[v2] ++ ;
+
+        pointNormals[v3] += faceNormals[pos] ;
+        numberOfNormals[v3] ++ ;
+
+        Triangles[pos] = _vertex3ui(v1, v2, v3);
         pos++;
     }
 

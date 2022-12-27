@@ -48,7 +48,7 @@ void _object3D::draw_fill()
   int Vertex_1,Vertex_2,Vertex_3;
   glPolygonMode(GL_FRONT, GL_FILL) ;
   glBegin(GL_TRIANGLES) ;
-  glColor3fv((GLfloat *) &WHITE) ;
+//  glColor3fv((GLfloat *) &WHITE) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {
       Vertex_1 = Triangles[i]._0  ;
       Vertex_2 = Triangles[i]._1  ;

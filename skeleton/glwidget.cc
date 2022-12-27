@@ -41,10 +41,10 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 }
 
 void _gl_widget::idle_event() {
-//    if (light_angle > 2*M_PI) light_angle -= 2*M_PI ;
-//    light_angle = (light_angle+0.05) ;
-//    Light_position[0] = cos(light_angle) ;
-//    Light_position[2] = sin(light_angle) ;
+    if (light_angle > 2*M_PI) light_angle -= 2*M_PI ;
+    light_angle = (light_angle+0.05) ;
+    Light_position[0] = cos(light_angle) ;
+    Light_position[2] = sin(light_angle) ;
 
     if (!animation) return;
     if(Robot.brazo.antebrazo.translacion<=-1+0.01)

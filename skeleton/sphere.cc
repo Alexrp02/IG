@@ -97,14 +97,49 @@ _sphere::_sphere(int n, float r, int revolutions)
 
     //Cubierta superior
     for (int i=0 ; i<revolutions ; i++) {
-        faceNormals[pos] = calculate_normalized_normal(Vertices[Vertices.size()-2], Vertices[((n-3)+(n-2)*(i+1))%((n-2)*revolutions)], Vertices[((n-3)+(n-2)*i)%((n-2)*revolutions)]) ;
-        Triangles[pos] = _vertex3ui(((n-3)+(n-2)*i)%((n-2)*revolutions), ((n-3)+(n-2)*(i+1))%((n-2)*revolutions), Vertices.size()-2) ;
+        int v1 = Vertices.size()-2;
+        int v2 = ((n-3)+(n-2)*(i+1))%((n-2)*revolutions) ;
+        int v3 = ((n-3)+(n-2)*i)%((n-2)*revolutions) ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        pointNormals[v1].x += faceNormals[pos].x ;
+        pointNormals[v1].y += faceNormals[pos].y ;
+        pointNormals[v1].z += faceNormals[pos].z ;
+        numberOfNormals[v1] += 1 ;
+
+        pointNormals[v2].x += faceNormals[pos].x ;
+        pointNormals[v2].y += faceNormals[pos].y ;
+        pointNormals[v2].z += faceNormals[pos].z ;
+        numberOfNormals[v2] += 1 ;
+
+        pointNormals[v3].x += faceNormals[pos].x ;
+        pointNormals[v3].y += faceNormals[pos].y ;
+        pointNormals[v3].z += faceNormals[pos].z ;
+        numberOfNormals[v3] += 1 ;
+        Triangles[pos] = _vertex3ui(v3, v2, v1) ;
         pos++ ;
     }
     //Cubierta inferior
     for (int i=0 ; i<revolutions ; i++) {
-        faceNormals[pos] = calculate_normalized_normal(Vertices[((n-2)*i)%((n-2)*revolutions)], Vertices[((n-2)*(i+1))%((n-2)*revolutions)], Vertices[Vertices.size()-1]) ;
-        Triangles[pos] = _vertex3ui(((n-2)*i)%((n-2)*revolutions), ((n-2)*(i+1))%((n-2)*revolutions), Vertices.size()-1) ;
+        int v1 = ((n-2)*i)%((n-2)*revolutions) ;
+        int v2 = ((n-2)*(i+1))%((n-2)*revolutions) ;
+        int v3 = Vertices.size()-1 ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        pointNormals[v1].x += faceNormals[pos].x ;
+        pointNormals[v1].y += faceNormals[pos].y ;
+        pointNormals[v1].z += faceNormals[pos].z ;
+        numberOfNormals[v1] += 1 ;
+
+        pointNormals[v2].x += faceNormals[pos].x ;
+        pointNormals[v2].y += faceNormals[pos].y ;
+        pointNormals[v2].z += faceNormals[pos].z ;
+        numberOfNormals[v2] += 1 ;
+
+        pointNormals[v3].x += faceNormals[pos].x ;
+        pointNormals[v3].y += faceNormals[pos].y ;
+        pointNormals[v3].z += faceNormals[pos].z ;
+        numberOfNormals[v3] += 1 ;
+
+        Triangles[pos] = _vertex3ui(v1, v2, v3) ;
         pos++ ;
     }
     averageNormal() ;

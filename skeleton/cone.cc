@@ -53,15 +53,41 @@ _cone::_cone(int n, float r, float h)
 //        }
 //    }
     for (int i=0 ; i<n ; i++) {
-        faceNormals[pos] = calculate_normalized_normal(Vertices[Vertices.size()-2], Vertices[(i+1)%n], Vertices[i%n]) ;
-        Triangles[pos] = _vertex3ui(i%n, (i+1)%n, Vertices.size()-2) ;
+        int v1 = Vertices.size()-2 ;
+        int v2 = (i+1)%n ;
+        int v3 = i%n ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        pointNormals[v1] += faceNormals[pos] ;
+        numberOfNormals[v1] ++ ;
+
+        pointNormals[v2] += faceNormals[pos] ;
+        numberOfNormals[v2] ++ ;
+
+        pointNormals[v3] += faceNormals[pos] ;
+        numberOfNormals[v3] ++ ;
+
+        Triangles[pos] = _vertex3ui(v1, v2, v3) ;
         pos++ ;
     }
     for (int i=0 ; i<n ; i++) {
-        faceNormals[pos] = calculate_normalized_normal(Vertices[i%n], Vertices[(i+1)%n], Vertices[Vertices.size()-1]) ;
+        int v1 = i%n ;
+        int v2 = (i+1)%n ;
+        int v3 = Vertices.size()-1 ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        pointNormals[v1] += faceNormals[pos] ;
+        numberOfNormals[v1] ++ ;
+
+        pointNormals[v2] += faceNormals[pos] ;
+        numberOfNormals[v2] ++ ;
+
+        pointNormals[v3] += faceNormals[pos] ;
+        numberOfNormals[v3] ++ ;
+
         Triangles[pos] = _vertex3ui(Vertices.size()-1, (i+1)%n, i%n);
         pos++;
     }
+
+    averageNormal() ;
 
     Edges.resize(Triangles.size()*3) ;
 

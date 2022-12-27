@@ -36,6 +36,8 @@ _tetrahedron::_tetrahedron(float Size)
 
   Triangles.resize(4);
   faceNormals.resize(4) ; //Por cada triangulo una normal.
+  pointNormals.resize(Vertices.size()) ;
+  numberOfNormals.resize(Vertices.size()) ;
 
   Triangles[0]=_vertex3ui(0,1,3);
   faceNormals[0] = calculate_normalized_normal(Vertices[0], Vertices[1], Vertices[3]);
@@ -45,5 +47,15 @@ _tetrahedron::_tetrahedron(float Size)
   faceNormals[2] = calculate_normalized_normal(Vertices[2], Vertices[0], Vertices[3]);
   Triangles[3]=_vertex3ui(0,2,1);
   faceNormals[3] = calculate_normalized_normal(Vertices[0], Vertices[2], Vertices[1]);
+
+  for (int i=0 ; i<Triangles.size() ; i++) {
+      pointNormals[Triangles[i].x] += faceNormals[i] ;
+      pointNormals[Triangles[i].y] += faceNormals[i] ;
+      pointNormals[Triangles[i].z] += faceNormals[i] ;
+      numberOfNormals[Triangles[i].x] += 1;
+      numberOfNormals[Triangles[i].y] += 1;
+      numberOfNormals[Triangles[i].z] += 1;
+  }
+  averageNormal() ;
 }
 
