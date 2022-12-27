@@ -40,6 +40,8 @@ _cone::_cone(int n, float r, float h)
 
     Triangles.resize(2*n) ;
     faceNormals.resize(2*n) ;
+    pointNormals.resize(Vertices.size()) ;
+    numberOfNormals.resize(Vertices.size()) ;
     pos=0;
 
 //    for(int i=0 ; i<2 ; i++) {

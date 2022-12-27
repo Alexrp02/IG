@@ -48,12 +48,13 @@ void _object3D::draw_fill()
   int Vertex_1,Vertex_2,Vertex_3;
   glPolygonMode(GL_FRONT, GL_FILL) ;
   glBegin(GL_TRIANGLES) ;
+  glColor3fv((GLfloat *) &WHITE) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {
       Vertex_1 = Triangles[i]._0  ;
       Vertex_2 = Triangles[i]._1  ;
       Vertex_3 = Triangles[i]._2  ;
-//      glNormal3f(faceNormals[i].x, faceNormals[i].y, faceNormals[i].z) ;
-//      glMaterialf(GL_FRONT,GL_SHININESS, 128) ;
+      glNormal3f(faceNormals[i].x, faceNormals[i].y, faceNormals[i].z) ;
+
       glNormal3f(pointNormals[Vertex_1].x, pointNormals[Vertex_1].y, pointNormals[Vertex_1].z) ;
       glVertex3f(Vertices[Vertex_1].x, Vertices[Vertex_1].y, Vertices[Vertex_1].z);
       glNormal3f(pointNormals[Vertex_2].x, pointNormals[Vertex_2].y, pointNormals[Vertex_2].z) ;
@@ -109,4 +110,12 @@ _vertex3f _object3D::calculate_normalized_normal(_vertex3f v1, _vertex3f v2, _ve
 
 float _object3D::calculate_module(_vertex3f v) {
     return (sqrt(pow(v.x, 2) + pow(v.y,2) + pow(v.z,2))) ;
+}
+
+void _object3D::averageNormal () {
+    for (int i=0 ; i< pointNormals.size() ; i++) {
+        pointNormals[i].x /= numberOfNormals[i];
+        pointNormals[i].y /= numberOfNormals[i] ;
+        pointNormals[i].z /= numberOfNormals[i] ;
+    }
 }

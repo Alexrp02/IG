@@ -27,6 +27,8 @@ _ply_object::_ply_object(const string &file_name)
     reader.close() ;
     Vertices.resize(Coordinates.size()/3) ;
     faceNormals.resize(Positions.size()/3) ;
+    pointNormals.resize(Vertices.size()) ;
+    numberOfNormals.resize(Vertices.size()) ;
     Triangles.resize(Positions.size()/3) ;
     for (unsigned int i=0 ; i<Coordinates.size() ; i+=3) {
         Vertices[i/3] = _vertex3f(Coordinates[i] , Coordinates[i+1], Coordinates[i+2]) ;
@@ -34,8 +36,16 @@ _ply_object::_ply_object(const string &file_name)
 
     for (unsigned int i=0 ; i<Positions.size() ; i+=3){
         faceNormals[i/3] = calculate_normalized_normal(Vertices[Positions[i]], Vertices[Positions[i+1]], Vertices[Positions[i+2]]) ;
+        pointNormals[Positions[i]] += faceNormals[i/3] ;
+        numberOfNormals[Positions[i]] += 1 ;
+        pointNormals[Positions[i+1]] += faceNormals[i/3] ;
+        numberOfNormals[Positions[i+1]] += 1 ;
+        pointNormals[Positions[i+2]] += faceNormals[i/3] ;
+        numberOfNormals[Positions[i+2]] += 1 ;
         Triangles[i/3] = _vertex3ui(Positions[i] , Positions[i+1], Positions[i+2]) ;
     }
+
+    averageNormal() ;
 
 //    Edges.resize(Triangles.size()*3) ;
 
@@ -58,6 +68,7 @@ void _ply_object::draw_line() {
     int Vertex_1,Vertex_2,Vertex_3;
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) ;
+    glDisable(GL_LIGHTING) ;
     glBegin(GL_TRIANGLES) ;
     for(unsigned int i=0 ; i<Triangles.size() ; i++) {
         Vertex_1 = Triangles[i]._0  ;
@@ -68,5 +79,6 @@ void _ply_object::draw_line() {
         glVertex3f(Vertices[Vertex_3].x, Vertices[Vertex_3].y, Vertices[Vertex_3].z);
     }
     glEnd();
+    glEnable(GL_LIGHTING) ;
 }
 

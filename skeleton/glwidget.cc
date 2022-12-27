@@ -10,6 +10,8 @@
 #include "glwidget.h"
 #include "window.h"
 #include <QTimer>
+#include<cmath>
+#include<math.h>
 
 using namespace std;
 using namespace _gl_widget_ne;
@@ -24,6 +26,7 @@ using namespace _colors_ne;
 
 _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 {
+  light_angle = 0 ;
   timer = new QTimer(this) ;
   connect(timer, SIGNAL(timeout()), this, SLOT(idle_event())) ;
   timer->start(0) ;
@@ -38,6 +41,11 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 }
 
 void _gl_widget::idle_event() {
+//    if (light_angle > 2*M_PI) light_angle -= 2*M_PI ;
+//    light_angle = (light_angle+0.05) ;
+//    Light_position[0] = cos(light_angle) ;
+//    Light_position[2] = sin(light_angle) ;
+
     if (!animation) return;
     if(Robot.brazo.antebrazo.translacion<=-1+0.01)
         translacion = false ;
@@ -112,6 +120,8 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_L:Draw_line=!Draw_line;break;
   case Qt::Key_F:Draw_fill=!Draw_fill;break;
   case Qt::Key_C:Draw_chess=!Draw_chess;break;
+  case Qt::Key_F3:GOURAD = false ;break;
+  case Qt::Key_F4:GOURAD = true ;break;
 
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
   case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;
@@ -144,15 +154,22 @@ void _gl_widget::clear_window()
 
 void _gl_widget::change_light()
 {
-
+    glMatrixMode(GL_MODELVIEW) ;
+    glPushMatrix() ;
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0) ;
+    if (!GOURAD) glShadeModel(GL_FLAT);
+    else glShadeModel(GL_SMOOTH) ;
     glEnable(GL_COLOR_MATERIAL);
+    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS, 0) ;
+    GLfloat specular[4] = {0.5f,0.1f,0.1f, 0.f};
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+    glDisable(GL_COLOR_MATERIAL) ;
   //  glMatrixMode(GL_MODELVIEW);
     glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
-//      GLfloat ambient[4] = {0.f,0.5f,0.5f, 1.f};
-//      glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+    glPopMatrix() ;
+
 }
 
 
@@ -339,11 +356,11 @@ void _gl_widget::initializeGL()
 //  glPopMatrix() ;
 //  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 90.0) ;
 
-
   Observer_angle_x=0;
   Observer_angle_y=0;
   Observer_distance=DEFAULT_DISTANCE;
 
+  GOURAD = false ;
   x_size = X_MAX ;
   y_size = Y_MAX ;
   Draw_point=false;

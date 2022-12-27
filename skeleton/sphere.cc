@@ -107,11 +107,7 @@ _sphere::_sphere(int n, float r, int revolutions)
         Triangles[pos] = _vertex3ui(((n-2)*i)%((n-2)*revolutions), ((n-2)*(i+1))%((n-2)*revolutions), Vertices.size()-1) ;
         pos++ ;
     }
-    for (int i=0 ; i< pointNormals.size() ; i++) {
-        pointNormals[i].x /= numberOfNormals[i];
-        pointNormals[i].y /= numberOfNormals[i] ;
-        pointNormals[i].z /= numberOfNormals[i] ;
-    }
+    averageNormal() ;
 
     Edges.resize(Triangles.size()*3) ;
 

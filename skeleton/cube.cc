@@ -52,31 +52,52 @@ _cube::_cube(float Size)
 
   Triangles.resize(12);
   faceNormals.resize(12) ;
-
+  pointNormals.resize(Vertices.size()) ;
+  numberOfNormals.resize(Vertices.size()) ;
 
   faceNormals[0] = calculate_normalized_normal(Vertices[0], Vertices[1], Vertices[3]) ;
   Triangles[0]=_vertex3ui(0,1,3);
+
   faceNormals[1] = calculate_normalized_normal(Vertices[1], Vertices[2], Vertices[3]) ;
   Triangles[1]=_vertex3ui(1,2,3);
+
   faceNormals[2] = calculate_normalized_normal(Vertices[4], Vertices[5], Vertices[0]) ;
   Triangles[2]=_vertex3ui(4,5,0);
+
   faceNormals[3] = calculate_normalized_normal(Vertices[5], Vertices[1], Vertices[0]) ;
   Triangles[3]=_vertex3ui(5,1,0);
+
   faceNormals[4] = calculate_normalized_normal(Vertices[4], Vertices[0], Vertices[7]) ;
   Triangles[4]=_vertex3ui(4,0,7);
+
   faceNormals[5] = calculate_normalized_normal(Vertices[0], Vertices[3], Vertices[7]) ;
   Triangles[5]=_vertex3ui(0,3,7);
+
   faceNormals[6] = calculate_normalized_normal(Vertices[3], Vertices[2], Vertices[7]) ;
   Triangles[6]=_vertex3ui(3,2,7);
+
   faceNormals[7] = calculate_normalized_normal(Vertices[2], Vertices[6], Vertices[7]) ;
   Triangles[7]=_vertex3ui(2,6,7);
+
   faceNormals[8] = calculate_normalized_normal(Vertices[1], Vertices[5], Vertices[2]) ;
   Triangles[8]=_vertex3ui(1,5,2);
+
   faceNormals[9] = calculate_normalized_normal(Vertices[5], Vertices[6], Vertices[2]) ;
   Triangles[9]=_vertex3ui(5,6,2);
+
   faceNormals[10] = calculate_normalized_normal(Vertices[5], Vertices[4], Vertices[6]) ;
   Triangles[10]=_vertex3ui(5,4,6);
+
   faceNormals[11] = calculate_normalized_normal(Vertices[4], Vertices[7], Vertices[6]) ;
   Triangles[11]=_vertex3ui(4,7,6);
+
+  for (int i=0 ; i<Triangles.size() ; i++) {
+      pointNormals[Triangles[i].x] += faceNormals[i] ;
+      pointNormals[Triangles[i].y] += faceNormals[i] ;
+      pointNormals[Triangles[i].z] += faceNormals[i] ;
+      numberOfNormals[Triangles[i].x] += 1;
+      numberOfNormals[Triangles[i].y] += 1;
+      numberOfNormals[Triangles[i].z] += 1;
+  }
 }
 

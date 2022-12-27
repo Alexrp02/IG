@@ -34,6 +34,7 @@ class _object3D:public _basic_object3D
   void draw_chess() ;
   _vertex3f calculate_normalized_normal(_vertex3f, _vertex3f, _vertex3f) ;
   float calculate_module(_vertex3f) ;
+  void averageNormal () ;
 
 };
 
