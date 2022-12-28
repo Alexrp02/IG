@@ -22,8 +22,9 @@
 class _dashboard:public _object3D
 {
 public:
-  _dashboard();
+  _dashboard(int);
   void draw_fill() ;
+  void draw_line() ;
 };
 
 #endif

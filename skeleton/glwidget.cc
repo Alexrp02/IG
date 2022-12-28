@@ -163,8 +163,8 @@ void _gl_widget::change_light()
     glEnable(GL_LIGHT0) ;
     if (!GOURAD) glShadeModel(GL_FLAT);
     else glShadeModel(GL_SMOOTH) ;
-    glEnable(GL_COLOR_MATERIAL);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS, 0) ;
+//    glEnable(GL_COLOR_MATERIAL);
+//    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS, 0) ;
 //    GLfloat specular[4] = {0.5f,0.1f,0.1f, 0.f};
 //    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 //    glDisable(GL_COLOR_MATERIAL) ;

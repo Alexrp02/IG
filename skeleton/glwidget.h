@@ -114,7 +114,7 @@ private:
   _cuerpo Cuerpo = _cuerpo() ;
   _rueda Rueda = _rueda() ;
   _robot Robot = _robot() ;
-  _dashboard Tablero = _dashboard() ;
+  _dashboard Tablero = _dashboard(3) ;
   _gl_widget_ne::_object Object;
 
   bool Draw_point;
