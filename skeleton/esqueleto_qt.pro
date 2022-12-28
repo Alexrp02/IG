@@ -8,6 +8,7 @@ HEADERS = \
   cube.h \
   cuerpo.h \
   cylinder.h \
+  dashboard.h \
   dedo.h \
   mano.h \
   object3d.h \
@@ -32,6 +33,7 @@ SOURCES = \
   cube.cc \
   cuerpo.cc \
   cylinder.cc \
+  dashboard.cc \
   dedo.cc \
   mano.cc \
   object3d.cc \

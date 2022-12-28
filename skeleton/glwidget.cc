@@ -12,6 +12,7 @@
 #include <QTimer>
 #include<cmath>
 #include<math.h>
+#include<QImageReader>
 
 using namespace std;
 using namespace _gl_widget_ne;
@@ -90,6 +91,7 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_5:Object=OBJECT_SPHERE;break;
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_HIERARCHICAL;break;
+  case Qt::Key_8:Object=OBJECT_DASHBOARD;break;
 
   case Qt::Key_A:animation=!animation;break;
   case Qt::Key_Q:
@@ -163,9 +165,9 @@ void _gl_widget::change_light()
     else glShadeModel(GL_SMOOTH) ;
     glEnable(GL_COLOR_MATERIAL);
     glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS, 0) ;
-    GLfloat specular[4] = {0.5f,0.1f,0.1f, 0.f};
-    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-    glDisable(GL_COLOR_MATERIAL) ;
+//    GLfloat specular[4] = {0.5f,0.1f,0.1f, 0.f};
+//    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+//    glDisable(GL_COLOR_MATERIAL) ;
   //  glMatrixMode(GL_MODELVIEW);
     glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
     glPopMatrix() ;
@@ -233,6 +235,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CYLINDER:Cylinder.draw_point();break;
     case OBJECT_SPHERE:Sphere.draw_point();break;
     case OBJECT_HIERARCHICAL:Robot.draw("POINT");break;
+    case OBJECT_DASHBOARD:Tablero.draw_point();break;
     default:break;
     }
   }
@@ -248,6 +251,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CYLINDER:Cylinder.draw_line();break;
     case OBJECT_SPHERE:Sphere.draw_line();break;
     case OBJECT_HIERARCHICAL:Robot.draw("LINE");break;
+    case OBJECT_DASHBOARD:Tablero.draw_line();break;
     default:break;
     }
   }
@@ -262,6 +266,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CYLINDER:Cylinder.draw_fill();break;
     case OBJECT_SPHERE:Sphere.draw_fill();break;
     case OBJECT_HIERARCHICAL:Robot.draw("FILL");break;
+    case OBJECT_DASHBOARD:Tablero.draw_fill();break;
     default:break;
     }
   }
@@ -275,6 +280,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CYLINDER:Cylinder.draw_chess();break;
     case OBJECT_SPHERE:Sphere.draw_chess();break;
     case OBJECT_HIERARCHICAL:Robot.draw("CHESS");break;
+    case OBJECT_DASHBOARD:Tablero.draw_chess();break;
     default:break;
     }
   }
@@ -367,4 +373,8 @@ void _gl_widget::initializeGL()
   Draw_line=true;
   Draw_fill=false;
   Draw_chess=false;
+
+  glGenTextures(1, &Tablero.textureID);
+  std::cout << Tablero.textureID << endl ;
+  Tablero.read_texture(Tablero.texture_name) ;
 }

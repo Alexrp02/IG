@@ -21,6 +21,7 @@
 #include "cone.h"
 #include "cuerpo.h"
 #include "cylinder.h"
+#include "dashboard.h"
 #include "dedo.h"
 #include "mano.h"
 #include "ojo.h"
@@ -48,7 +49,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS} _mode_draw;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY, OBJECT_CONE, OBJECT_CYLINDER, OBJECT_SPHERE, OBJECT_HIERARCHICAL} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY, OBJECT_CONE, OBJECT_CYLINDER, OBJECT_SPHERE, OBJECT_HIERARCHICAL, OBJECT_DASHBOARD} _object;
 }
 
 class _window;
@@ -113,6 +114,7 @@ private:
   _cuerpo Cuerpo = _cuerpo() ;
   _rueda Rueda = _rueda() ;
   _robot Robot = _robot() ;
+  _dashboard Tablero = _dashboard() ;
   _gl_widget_ne::_object Object;
 
   bool Draw_point;
