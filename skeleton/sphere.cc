@@ -45,13 +45,6 @@ _sphere::_sphere(int n, float r, int revolutions)
     pos=0 ;
     for (int i=0 ; i<n-3 ; i++) {
         for (int j=0 ; j<revolutions ; j++) {
-//            int v1 = ((1+n*j)+i)%(revolutions*n);
-//            int v2 = (n+i+1+ n*j)%(revolutions*n);
-//            int v3 = 2+i+n*j;
-//            Triangles[pos] = _vertex3ui( v1 , v2 , v3 ) ;
-//            pos++ ;
-//            Triangles[pos] = _vertex3ui( (v1+n)%(revolutions*n) , (v2+1)%(revolutions*n) , v3 ) ;
-//            pos++ ;
             int v1 = ((n-2)*j+i)%((n-2)*revolutions);
             int v2 = ((n-2)*(1+j)+i)%((n-2)*revolutions) ;
             int v3 = (1+(n-2)*j+i)%((n-2)*revolutions) ;

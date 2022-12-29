@@ -69,6 +69,8 @@ public:
 
   float x_size ;
   float y_size ;
+  float light_angle;
+  GLfloat Light_position [4] = {1.0, 1.0, 0.0, 0} ;
   void clear_window();
   void change_projection();
   void change_observer();
@@ -93,8 +95,6 @@ private:
   bool animation;
   bool GOURAD;
   bool translacion ;
-  float light_angle;
-  GLfloat Light_position [4] = {1.0, 1.0, 0.0, 0.0} ;
   bool apertura ;
   QTimer* timer ;
   _axis Axis;
@@ -114,7 +114,7 @@ private:
   _cuerpo Cuerpo = _cuerpo() ;
   _rueda Rueda = _rueda() ;
   _robot Robot = _robot() ;
-  _dashboard Tablero = _dashboard(3) ;
+  _dashboard Tablero = _dashboard(5) ;
   _gl_widget_ne::_object Object;
 
   bool Draw_point;

@@ -42,10 +42,10 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 }
 
 void _gl_widget::idle_event() {
-    if (light_angle > 2*M_PI) light_angle -= 2*M_PI ;
-    light_angle = (light_angle+0.05) ;
-    Light_position[0] = cos(light_angle) ;
-    Light_position[2] = sin(light_angle) ;
+//    if (light_angle > 2*M_PI) light_angle -= 2*M_PI ;
+//    light_angle = (light_angle+0.025) ;
+//    Light_position[0] = cos(light_angle);
+//    Light_position[2] = sin(light_angle);
 
     if (!animation) return;
     if(Robot.brazo.antebrazo.translacion<=-1+0.01)
@@ -165,11 +165,17 @@ void _gl_widget::change_light()
     else glShadeModel(GL_SMOOTH) ;
 //    glEnable(GL_COLOR_MATERIAL);
 //    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS, 0) ;
-//    GLfloat specular[4] = {0.5f,0.1f,0.1f, 0.f};
-//    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-//    glDisable(GL_COLOR_MATERIAL) ;
-  //  glMatrixMode(GL_MODELVIEW);
     glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
+    // Set the diffuse light component
+    GLfloat diffuseLight[] = {0.5, 0.5, 0.5, 1};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+
+    GLfloat light_ambient[] = { 0.5, 0.0, 0.5, 1.0};
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+
+    // Set the specular light component
+    GLfloat specularLight[] = {1, 1, 1, 1};
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
     glPopMatrix() ;
 
 }

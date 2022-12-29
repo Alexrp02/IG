@@ -46,7 +46,7 @@ _tetrahedron::_tetrahedron(float Size)
   Triangles[2]=_vertex3ui(2,0,3);
   faceNormals[2] = calculate_normalized_normal(Vertices[2], Vertices[0], Vertices[3]);
   Triangles[3]=_vertex3ui(0,2,1);
-  faceNormals[3] = calculate_normalized_normal(Vertices[1], Vertices[2], Vertices[0]);
+  faceNormals[3] = calculate_normalized_normal(Vertices[0], Vertices[2], Vertices[1]);
 
   for (int i=0 ; i<Triangles.size() ; i++) {
       pointNormals[Triangles[i].x] += faceNormals[i] ;
