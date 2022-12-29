@@ -24,6 +24,7 @@ class _sphere:public _object3D
 {
 public:
     _sphere(int n, float Radius, int revolutions);
+    void draw_fill() ;
 };
 
 #endif

@@ -70,7 +70,7 @@ public:
   float x_size ;
   float y_size ;
   float light_angle;
-  GLfloat Light_position [4] = {1.0, 1.0, 0.0, 0} ;
+  GLfloat Light_position [4] = {1.0, 1.0, 0.0, 1} ;
   void clear_window();
   void change_projection();
   void change_observer();

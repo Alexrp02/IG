@@ -20,6 +20,8 @@
 
 _sphere::_sphere(int n, float r, int revolutions)
 {
+    texture_name = "../textures/mundo.jpg" ;
+
     Vertices.resize((n-2)*revolutions + 2) ;
     int pos=0 ;
     for (int j=0 ; j<revolutions ; j++) {
@@ -152,5 +154,50 @@ _sphere::_sphere(int n, float r, int revolutions)
         pos++ ;
     }
 
+
+}
+
+void _sphere::draw_fill() {
+    int Vertex_1,Vertex_2,Vertex_3;
+//    std::cout << "Texture ID in function is:" << textureID << endl;
+//    std::cout << "The image width in function is: " << Image.width() << endl ;
+//    glDisable(GL_LIGHTING) ;
+//    GLfloat material_diffuse[] = { 1, 1, 1, 1.0 };
+//    GLfloat material_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
+//    GLfloat material_specular[] = { 0.5, 0.5, 0.5, 1.0 };
+//    GLfloat material_shininess[] = { 50.0 };
+
+//    glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
+//    glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
+//    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+//    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+//    glEnable(GL_LIGHTING) ;
+    glDisable(GL_LIGHTING) ;
+    glEnable(GL_TEXTURE_2D) ;
+
+    glPolygonMode(GL_FRONT, GL_FILL) ;
+    glColor3fv((GLfloat *) &_colors_ne::WHITE) ;
+    glBegin(GL_TRIANGLES) ;
+    for(unsigned int i=0 ; i<Triangles.size() ; i++) {
+        Vertex_1 = Triangles[i]._0  ;
+        Vertex_2 = Triangles[i]._1  ;
+        Vertex_3 = Triangles[i]._2  ;
+        glNormal3f(faceNormals[i].x, faceNormals[i].y, faceNormals[i].z) ;
+
+        glNormal3f(pointNormals[Vertex_1].x, pointNormals[Vertex_1].y, pointNormals[Vertex_1].z) ;
+        glTexCoord2f((Vertices[Vertex_1].x+1)/2, (Vertices[Vertex_1].y+1)/2) ;
+        glVertex3f(Vertices[Vertex_1].x, Vertices[Vertex_1].y, Vertices[Vertex_1].z);
+
+        glNormal3f(pointNormals[Vertex_2].x, pointNormals[Vertex_2].y, pointNormals[Vertex_2].z) ;
+        glTexCoord2f((Vertices[Vertex_2].x+1)/2, (Vertices[Vertex_2].y+1)/2) ;
+        glVertex3f(Vertices[Vertex_2].x, Vertices[Vertex_2].y, Vertices[Vertex_2].z);
+
+        glNormal3f(pointNormals[Vertex_3].x, pointNormals[Vertex_3].y, pointNormals[Vertex_3].z) ;
+        glTexCoord2f((Vertices[Vertex_3].x+1)/2, (Vertices[Vertex_3].y+1)/2) ;
+        glVertex3f(Vertices[Vertex_3].x, Vertices[Vertex_3].y, Vertices[Vertex_3].z);
+    }
+    glEnd();
+    glDisable(GL_TEXTURE_2D) ;
 }
 

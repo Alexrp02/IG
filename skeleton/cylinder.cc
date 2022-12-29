@@ -66,7 +66,7 @@ _cylinder::_cylinder(int n, float r, float h)
         int v1 = Vertices.size()-2 ;
         int v2 = (2*i+3)%(n*2) ;
         int v3 = i*2+1 ;
-        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[v2], Vertices[v1]) ;
         pointNormals[v1] += faceNormals[pos] ;
         numberOfNormals[v1] ++ ;
 

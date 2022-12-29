@@ -71,7 +71,7 @@ void _dashboard::draw_fill() {
 //    std::cout << "Texture ID in function is:" << textureID << endl;
 //    std::cout << "The image width in function is: " << Image.width() << endl ;
 //    glDisable(GL_LIGHTING) ;
-//    GLfloat material_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+//    GLfloat material_diffuse[] = { 1, 1, 1, 1.0 };
 //    GLfloat material_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
 //    GLfloat material_specular[] = { 0.5, 0.5, 0.5, 1.0 };
 //    GLfloat material_shininess[] = { 50.0 };
@@ -81,12 +81,13 @@ void _dashboard::draw_fill() {
 //    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
 //    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glEnable(GL_LIGHTING) ;
+//    glEnable(GL_LIGHTING) ;
+    glDisable(GL_LIGHTING) ;
     glEnable(GL_TEXTURE_2D) ;
 
     glPolygonMode(GL_FRONT, GL_FILL) ;
+    glColor3fv((GLfloat *) &_colors_ne::WHITE) ;
     glBegin(GL_TRIANGLES) ;
-//    glColor3fv((GLfloat *) &_colors_ne::WHITE) ;
     for(unsigned int i=0 ; i<Triangles.size() ; i++) {
         Vertex_1 = Triangles[i]._0  ;
         Vertex_2 = Triangles[i]._1  ;

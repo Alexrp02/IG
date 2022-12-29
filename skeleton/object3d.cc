@@ -48,17 +48,17 @@ void _object3D::draw_fill()
 {
   int Vertex_1,Vertex_2,Vertex_3;
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
-  // Set the material properties
-  GLfloat mat_ambient[] = {0.7, 0.7, 0.7, 1.0};
-  GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
-  GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
-  GLfloat mat_shininess[] = {128.0};
+//  // Set the material properties
+//  GLfloat mat_ambient[] = {0.7, 0.7, 0.7, 1.0};
+//  GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
+//  GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+//  GLfloat mat_shininess[] = {128.0};
 
-  // Set the material properties for the front face
-  glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-  glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+//  // Set the material properties for the front face
+//  glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+//  glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+//  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+//  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
   glBegin(GL_TRIANGLES) ;
 //  glColor3fv((GLfloat *) &WHITE) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {

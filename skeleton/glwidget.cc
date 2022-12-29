@@ -163,7 +163,7 @@ void _gl_widget::change_light()
     glEnable(GL_LIGHT0) ;
     if (!GOURAD) glShadeModel(GL_FLAT);
     else glShadeModel(GL_SMOOTH) ;
-//    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_COLOR_MATERIAL);
 //    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS, 0) ;
     glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
     // Set the diffuse light component
@@ -176,6 +176,7 @@ void _gl_widget::change_light()
     // Set the specular light component
     GLfloat specularLight[] = {1, 1, 1, 1};
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+    glDisable(GL_LIGHTING) ;
     glPopMatrix() ;
 
 }
@@ -383,4 +384,5 @@ void _gl_widget::initializeGL()
   glGenTextures(1, &Tablero.textureID);
   std::cout << Tablero.textureID << endl ;
   Tablero.read_texture(Tablero.texture_name) ;
+  Sphere.read_texture(Sphere.texture_name) ;
 }
