@@ -70,6 +70,8 @@ public:
   float x_size ;
   float y_size ;
   float light_angle;
+  bool animation;
+  _gl_widget_ne::_object Object;
   GLfloat Light_position [4] = {1.0, 1.0, 0.0, 1} ;
   void clear_window();
   void change_projection();
@@ -92,7 +94,6 @@ protected:
 
 private:
   _window *Window;
-  bool animation;
   bool GOURAD;
   bool translacion ;
   bool apertura ;
@@ -115,7 +116,6 @@ private:
   _rueda Rueda = _rueda() ;
   _robot Robot = _robot() ;
   _dashboard Tablero = _dashboard(5) ;
-  _gl_widget_ne::_object Object;
 
   bool Draw_point;
   bool Draw_line;

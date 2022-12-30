@@ -10,6 +10,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qcombobox.h"
 #include <QMainWindow>
 #include <QStandardPaths>
 #include <QFileDialog>
@@ -34,6 +35,8 @@ class _window : public QMainWindow
 
 public:
     _window();
+    QComboBox* comboBox ;
+    QCheckBox* checkbox ;
 
 private:
   _gl_widget *GL_widget;
