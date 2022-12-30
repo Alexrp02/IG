@@ -227,7 +227,7 @@ _sphere::_sphere(int n, float r, int revolutions)
         int v1 = (n*(i+1)) ;
         int v2 = (n*(i+1)+1) ;
         int v3 = 1+n*i ;
-        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[v2], Vertices[v1]) ;
         pointNormals[v1].x += faceNormals[pos].x ;
         pointNormals[v1].y += faceNormals[pos].y ;
         pointNormals[v1].z += faceNormals[pos].z ;
@@ -278,8 +278,8 @@ void _sphere::draw_fill() {
     //    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
     //    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    //    glEnable(GL_LIGHTING) ;
-    glDisable(GL_LIGHTING) ;
+        glEnable(GL_LIGHTING) ;
+//    glDisable(GL_LIGHTING) ;
     glEnable(GL_TEXTURE_2D) ;
 
     glPolygonMode(GL_FRONT, GL_FILL) ;

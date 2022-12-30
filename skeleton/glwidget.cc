@@ -42,6 +42,9 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 
 void _gl_widget::idle_event() {
     if (!animation) return ;
+    light_angle +=0.02;
+    Light_position[0] = cos((float)light_angle)*2;
+    Light_position[2] = sin((float)light_angle)*2;
     if(Robot.brazo.antebrazo.translacion<=-1+0.01)
         translacion = false ;
     else if(Robot.brazo.antebrazo.translacion>=0-0.01)
@@ -157,20 +160,20 @@ void _gl_widget::change_light()
     glEnable(GL_LIGHT0) ;
     if (!GOURAD) glShadeModel(GL_FLAT);
     else glShadeModel(GL_SMOOTH) ;
-    glEnable(GL_COLOR_MATERIAL);
-    //    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS, 0) ;
+//    glEnable(GL_COLOR_MATERIAL);
+//        glMaterialf(GL_FRONT,GL_SHININESS, 128) ;
     glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
     // Set the diffuse light component
-    GLfloat diffuseLight[] = {0.5, 0.5, 0.5, 1};
+    GLfloat diffuseLight[] = {1, 1, 1, 1};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
 
-    GLfloat light_ambient[] = { 0.5, 0.0, 0.5, 1.0};
-    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+//    GLfloat light_ambient[] = { 0.5, 0.0, 0.5, 1.0};
+//    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 
     // Set the specular light component
     GLfloat specularLight[] = {1, 1, 1, 1};
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-    glDisable(GL_LIGHTING) ;
+//    glDisable(GL_LIGHTING) ;
     glPopMatrix() ;
 
 }

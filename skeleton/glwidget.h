@@ -72,7 +72,7 @@ public:
   float light_angle;
   bool animation;
   _gl_widget_ne::_object Object;
-  GLfloat Light_position [4] = {1.0, 1.0, 0.0, 1} ;
+  GLfloat Light_position [4] = {1.0, 0.0, 0.0, 1} ;
   void clear_window();
   void change_projection();
   void change_observer();

@@ -61,8 +61,8 @@ _window::_window()
         // This lambda function will be called whenever the slider value changes
         // Update the variable with the new value
         GL_widget->light_angle = (float)value/1000*2*M_PI;
-        GL_widget->Light_position[0] = cos((float)value/1000*2*M_PI);
-        GL_widget->Light_position[2] = sin((float)value/1000*2*M_PI);
+        GL_widget->Light_position[0] = cos((float)value/1000*2*M_PI)*1.2;
+        GL_widget->Light_position[2] = sin((float)value/1000*2*M_PI)*1.2;
         std::cout << (float)value/1000*2*M_PI << endl ;
     });
     //Now create the label for the slider
@@ -123,6 +123,7 @@ _window::_window()
             GL_widget->Object = _gl_widget_ne::OBJECT_DASHBOARD ;
             break;
         }
+        GL_widget->update() ;
     });
     //Set the side menu to align the content to the top
     sideMenuLayout->setAlignment(Qt::AlignTop);
