@@ -73,7 +73,7 @@ _cone::_cone(int n, float r, float h)
         int v1 = i%n ;
         int v2 = (i+1)%n ;
         int v3 = Vertices.size()-1 ;
-        faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[v2], Vertices[v1]) ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
         pointNormals[v1] += faceNormals[pos] ;
         numberOfNormals[v1] ++ ;
 

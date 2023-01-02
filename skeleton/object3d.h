@@ -29,6 +29,7 @@ class _object3D:public _basic_object3D
   vector<_vertex3f> faceNormals;
   vector<_vertex3f> pointNormals;
   vector<int> numberOfNormals;
+  vector<float> textureX;
   QString texture_name;
   QImage Image ;
   GLuint textureID ;
@@ -41,7 +42,6 @@ class _object3D:public _basic_object3D
   _vertex3f calculate_normalized_normal(_vertex3f, _vertex3f, _vertex3f) ;
   float calculate_module(_vertex3f) ;
   void averageNormal () ;
-
 };
 
 #endif // OBJECT3D_H

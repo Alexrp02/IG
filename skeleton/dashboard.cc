@@ -19,7 +19,7 @@
 
 _dashboard::_dashboard(int iterations)
 {
-    texture_name = "../textures/mapamundi.jpg" ;
+    texture_name = "../textures/chess.jpeg" ;
     Vertices.resize((iterations+1)*(iterations+1)) ;
     Triangles.resize(iterations*iterations*2) ;
     faceNormals.resize(Triangles.size()) ;
@@ -49,12 +49,12 @@ _dashboard::_dashboard(int iterations)
         }
     }
 
-    for (int i=0 ; i<Triangles.size() ; i++) {
+    for (unsigned int i=0 ; i<Triangles.size() ; i++) {
         faceNormals[i] = calculate_normalized_normal(Vertices[Triangles[i].x], Vertices[Triangles[i].y], Vertices[Triangles[i].z]) ;
     }
 
 
-    for (int i=0 ; i<Triangles.size() ; i++) {
+    for (unsigned int i=0 ; i<Triangles.size() ; i++) {
         pointNormals[Triangles[i].x] += faceNormals[i] ;
         pointNormals[Triangles[i].y] += faceNormals[i] ;
         pointNormals[Triangles[i].z] += faceNormals[i] ;
@@ -66,7 +66,7 @@ _dashboard::_dashboard(int iterations)
     averageNormal() ;
 }
 
-void _dashboard::draw_fill() {
+void _dashboard::draw_texture() {
     int Vertex_1,Vertex_2,Vertex_3;
 //    std::cout << "Texture ID in function is:" << textureID << endl;
 //    std::cout << "The image width in function is: " << Image.width() << endl ;
@@ -74,19 +74,22 @@ void _dashboard::draw_fill() {
 //    GLfloat material_diffuse[] = { 1, 1, 1, 1.0 };
 //    GLfloat material_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
 //    GLfloat material_specular[] = { 0.5, 0.5, 0.5, 1.0 };
-//    GLfloat material_shininess[] = { 50.0 };
 
 //    glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
 //    glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
 //    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
-//    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glEnable(GL_LIGHTING) ;
-//    glDisable(GL_LIGHTING) ;
     glEnable(GL_TEXTURE_2D) ;
 
     glPolygonMode(GL_FRONT, GL_FILL) ;
     glColor3fv((GLfloat *) &_colors_ne::WHITE) ;
+//    float ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+//    float diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
+//    float specular[] = { 0.4, 0.4, 0.4, 1.0 };
+
+//    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+//    glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+//    glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
     glBegin(GL_TRIANGLES) ;
     for(unsigned int i=0 ; i<Triangles.size() ; i++) {
         Vertex_1 = Triangles[i]._0  ;

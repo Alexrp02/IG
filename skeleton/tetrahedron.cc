@@ -35,7 +35,7 @@ _tetrahedron::_tetrahedron(float Size)
   Edges[5] = _vertex2i(3,1) ;
 
   Triangles.resize(4);
-  faceNormals.resize(4) ; //Por cada triangulo una normal.
+  faceNormals.resize(Triangles.size()) ; //Por cada triangulo una normal.
   pointNormals.resize(Vertices.size()) ;
   numberOfNormals.resize(Vertices.size()) ;
 

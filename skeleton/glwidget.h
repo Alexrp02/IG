@@ -13,6 +13,7 @@
 #include <GL/gl.h>
 #include <QOpenGLWidget>
 #include <QKeyEvent>
+#include<QMouseEvent>
 #include <iostream>
 #include "antebrazo.h"
 #include "brazo.h"
@@ -69,10 +70,26 @@ public:
 
   float x_size ;
   float y_size ;
+  int material ;
+  bool COLOR ;
+  bool lighting ;
+  bool texturing ;
+  bool ortho ;
+  bool light0 ;
+  bool light1 ;
+  bool GOURAD;
+  float orthoZoom ;
   float light_angle;
   bool animation;
+  float angleStep ;
+  float translationStep ;
+  float handsOpeningStep ;
+  float headRotationStep ;
+  _robot Robot = _robot() ;
+  QPoint lastMousePos;
   _gl_widget_ne::_object Object;
-  GLfloat Light_position [4] = {1.0, 0.0, 0.0, 1} ;
+  GLfloat Light_position [4] = {2, 0.0, 0.0, 1} ;
+  GLfloat Light_position2 [4] = {0.5, 1.0, 0.5, 0} ;
   void clear_window();
   void change_projection();
   void change_observer();
@@ -90,11 +107,13 @@ protected:
   void paintGL() Q_DECL_OVERRIDE;
   void initializeGL() Q_DECL_OVERRIDE;
   void keyPressEvent(QKeyEvent *Keyevent) Q_DECL_OVERRIDE;
+  void wheelEvent(QWheelEvent *event ) Q_DECL_OVERRIDE;
+  void mousePressEvent (QMouseEvent * event) Q_DECL_OVERRIDE ;
+  void mouseMoveEvent (QMouseEvent * event) Q_DECL_OVERRIDE ;
 
 
 private:
   _window *Window;
-  bool GOURAD;
   bool translacion ;
   bool apertura ;
   QTimer* timer ;
@@ -114,8 +133,7 @@ private:
   _cabeza Cabeza = _cabeza() ;
   _cuerpo Cuerpo = _cuerpo() ;
   _rueda Rueda = _rueda() ;
-  _robot Robot = _robot() ;
-  _dashboard Tablero = _dashboard(5) ;
+  _dashboard Tablero = _dashboard(10) ;
 
   bool Draw_point;
   bool Draw_line;

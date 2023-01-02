@@ -11,6 +11,7 @@
 #define MAINWINDOW_H
 
 #include "qcombobox.h"
+#include "qspinbox.h"
 #include <QMainWindow>
 #include <QStandardPaths>
 #include <QFileDialog>
@@ -37,9 +38,21 @@ public:
     _window();
     QComboBox* comboBox ;
     QCheckBox* checkbox ;
+    QCheckBox* gouradCheckbox ;
+    QCheckBox* textureCheckbox ;
+    QCheckBox* lightingCheckbox ;
+    QSlider * handsSlider ;
+    QSlider * armsSlider ;
+    QSlider * angleSlider ;
+    QSlider * lightSlider ;
+    QDoubleSpinBox *armsNumber ;
+    QDoubleSpinBox *armsTranslationNumber ;
+    QDoubleSpinBox *handsNumber ;
+    QDoubleSpinBox *headNumber ;
 
 private:
   _gl_widget *GL_widget;
+  void setSliders() ;
 };
 
 #endif

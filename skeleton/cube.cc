@@ -51,14 +51,14 @@ _cube::_cube(float Size)
   Edges[29] = _vertex2i(4,6);
 
   Triangles.resize(12);
-  faceNormals.resize(12) ;
+  faceNormals.resize(Triangles.size()) ;
   pointNormals.resize(Vertices.size()) ;
   numberOfNormals.resize(Vertices.size()) ;
 
   Triangles[0]=_vertex3ui(0,1,3);
   Triangles[1]=_vertex3ui(1,2,3);
-  Triangles[2]=_vertex3ui(4,5,0);
-  Triangles[3]=_vertex3ui(5,1,0);
+  Triangles[2]=_vertex3ui(5,4,0);
+  Triangles[3]=_vertex3ui(1,5,0);
   Triangles[4]=_vertex3ui(4,0,7);
   Triangles[5]=_vertex3ui(0,3,7);
   Triangles[6]=_vertex3ui(3,2,7);

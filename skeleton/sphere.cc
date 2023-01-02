@@ -20,7 +20,7 @@
 
 _sphere::_sphere(int n, float r, int revolutions)
 {
-    texture_name = "../textures/mundo.jpg" ;
+    texture_name = "../textures/mapamundiok.jpg" ;
 
     //    Vertices.resize((n-2)*revolutions + 2) ;
     Vertices.resize(n*(revolutions+1)) ;
@@ -41,7 +41,7 @@ _sphere::_sphere(int n, float r, int revolutions)
 
     for (int j=0 ; j<revolutions+1 ; j++) {
         float angle = 2 * M_PI * j / revolutions;
-        textXCoord = angle / (2 * M_PI);
+        textXCoord = 1 - (angle / (2 * M_PI));
         for (int i=0 ; i<n ; i++) {
             float x = cos(3*M_PI/2 + M_PI*i/(n-1))*r ;
             float y = sin(3*M_PI/2 + M_PI*i/(n-1))*r ;
@@ -180,7 +180,7 @@ _sphere::_sphere(int n, float r, int revolutions)
         int v1 = (n-2)+n*i;
         int v2 = ((n-2)+n*(i+1)) ;
         int v3 = (n*(i+1)-1) ;
-        faceNormals[pos] = calculate_normalized_normal(Vertices[v1], Vertices[v2], Vertices[v3]) ;
+        faceNormals[pos] = calculate_normalized_normal(Vertices[v3], Vertices[v2], Vertices[v1]) ;
         pointNormals[v1].x += faceNormals[pos].x ;
         pointNormals[v1].y += faceNormals[pos].y ;
         pointNormals[v1].z += faceNormals[pos].z ;
@@ -266,7 +266,7 @@ _sphere::_sphere(int n, float r, int revolutions)
 
 }
 
-void _sphere::draw_fill() {
+void _sphere::draw_texture() {
     int Vertex_1,Vertex_2,Vertex_3;
     //    GLfloat material_diffuse[] = { 1, 1, 1, 1.0 };
     //    GLfloat material_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
@@ -278,7 +278,7 @@ void _sphere::draw_fill() {
     //    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
     //    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
     glBindTexture(GL_TEXTURE_2D, textureID);
-        glEnable(GL_LIGHTING) ;
+//        glDisable(GL_LIGHTING) ;
 //    glDisable(GL_LIGHTING) ;
     glEnable(GL_TEXTURE_2D) ;
 

@@ -41,7 +41,6 @@ void _mano::draw(string mode) {
     glPopMatrix() ;
 
     glPushMatrix() ;
-        glRotatef(0, 0, 1, 0) ;
         glPushMatrix() ;
             glTranslatef(0.05, 0, 0) ;
             glRotatef(apertura, 0, 0, 1) ;

@@ -33,6 +33,10 @@ void _rueda::draw(string mode) {
     glPushMatrix() ;
         glRotatef(90,0,0,1) ;
         glColor3fv((GLfloat *) &BLACK) ;
+        GLfloat ambient_diffuse [] = {0.1,0.1,0.1,1};
+        GLfloat specular [] = {0,0,0,0} ;
+        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE, ambient_diffuse) ;
+        glMaterialfv(GL_FRONT,GL_SPECULAR, specular) ;
         if(mode=="FILL"){
             cylinder.draw_fill() ;
         }else if(mode=="LINE"){
@@ -47,6 +51,16 @@ void _rueda::draw(string mode) {
             glScalef(0.2, 2, 0.2) ;
             glTranslatef(0,-0.04,0) ;
             glColor3fv((GLfloat *) &GRAY) ;
+            GLfloat material_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
+            GLfloat material_specular[] = { 0.5, 0.5, 0.5, 1.0 };
+            GLfloat material_ambient[] = {0.2, 0.2, 0.2, 1} ;
+            GLfloat material_emission[] = {0, 0, 0, 1} ;
+            GLfloat material_shininess = 64;
+            glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
+            glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+            glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
+            glMaterialfv(GL_FRONT, GL_EMISSION, material_emission);
+            glMaterialf(GL_FRONT, GL_SHININESS, material_shininess);
             if(mode=="FILL"){
                 cylinder.draw_fill() ;
             }else if(mode=="LINE"){

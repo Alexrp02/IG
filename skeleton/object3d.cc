@@ -34,7 +34,7 @@ void _object3D::draw_line()
         glVertex3f(Vertices[Vertex2].x, Vertices[Vertex2].y, Vertices[Vertex2].z);
     }
     glEnd();
-    glEnable(GL_LIGHTING) ;
+//    glEnable(GL_LIGHTING) ;
 }
 
 
@@ -48,19 +48,7 @@ void _object3D::draw_fill()
 {
   int Vertex_1,Vertex_2,Vertex_3;
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) ;
-//  // Set the material properties
-//  GLfloat mat_ambient[] = {0.7, 0.7, 0.7, 1.0};
-//  GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
-//  GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
-//  GLfloat mat_shininess[] = {128.0};
-
-//  // Set the material properties for the front face
-//  glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-//  glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-//  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-//  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
   glBegin(GL_TRIANGLES) ;
-//  glColor3fv((GLfloat *) &WHITE) ;
   for(unsigned int i=0 ; i<Triangles.size() ; i++) {
       Vertex_1 = Triangles[i]._0  ;
       Vertex_2 = Triangles[i]._1  ;
@@ -140,6 +128,7 @@ void _object3D::read_texture (QString texture_name) {
       std::cerr << "Couldn't load the image " + texture_name.toStdString() << endl ;
       exit(-1);
     }
+    glGenTextures(1, &textureID);
     Image=Image.mirrored();
     Image=Image.convertToFormat(QImage::Format_RGB888);
     glBindTexture(GL_TEXTURE_2D, textureID);

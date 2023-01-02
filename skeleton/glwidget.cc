@@ -33,8 +33,18 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
     connect(timer, SIGNAL(timeout()), this, SLOT(idle_event())) ;
     timer->start(0) ;
     giro = false ;
+    material = 0 ;
+    lighting = false ;
+    light0=true;
+    light1=true;
+    texturing = false ;
     animation = false ;
     translacion=false ;
+    handsOpeningStep = 1 ;
+    translationStep = 0.01 ;
+    headRotationStep = 0.5 ;
+    angleStep = 1 ;
+    orthoZoom = 12 ;
     apertura = false ;
     setMinimumSize(300, 300);
     setFocusPolicy(Qt::StrongFocus);
@@ -42,30 +52,32 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
 
 void _gl_widget::idle_event() {
     if (!animation) return ;
+    if (light_angle >= 2*M_PI) light_angle-=2*M_PI;
     light_angle +=0.02;
     Light_position[0] = cos((float)light_angle)*2;
     Light_position[2] = sin((float)light_angle)*2;
-    if(Robot.brazo.antebrazo.translacion<=-1+0.01)
+    if(Robot.brazo.antebrazo.translacion<=-1+translationStep)
         translacion = false ;
-    else if(Robot.brazo.antebrazo.translacion>=0-0.01)
+    else if(Robot.brazo.antebrazo.translacion>=0-translationStep)
         translacion = true ;
-    translacion ? Robot.brazo.antebrazo.translacion -= 0.01 : Robot.brazo.antebrazo.translacion += 0.01 ; ;
-
-    if (Robot.brazo.angle <= -360) Robot.brazo.angle+= 360 ;
-    Robot.brazo.angle -= 1;
+    translacion ? Robot.brazo.antebrazo.translacion -= translationStep : Robot.brazo.antebrazo.translacion += translationStep ; ;
+    Window->armsSlider->setValue(Robot.brazo.antebrazo.translacion*100) ;
+    if (Robot.brazo.angle <= 0) Robot.brazo.angle+= 360 ;
+    Robot.brazo.angle -= angleStep;
+    Window->angleSlider->setValue(Robot.brazo.angle) ;
 
     if (Robot.brazo.antebrazo.mano.apertura >= 60)
         apertura = false ;
     else if (Robot.brazo.antebrazo.mano.apertura <= 10)
         apertura = true ;
-    apertura ? Robot.brazo.antebrazo.mano.apertura+= 1 : Robot.brazo.antebrazo.mano.apertura-= 1 ; ;
-
+    apertura ? Robot.brazo.antebrazo.mano.apertura+= handsOpeningStep : Robot.brazo.antebrazo.mano.apertura-= handsOpeningStep ; ;
+    Window->handsSlider->setValue(Robot.brazo.antebrazo.mano.apertura) ;
     if(Robot.cabeza.rotacion >= 30)
         giro=true;
     else if (Robot.cabeza.rotacion <= -30)
         giro = false ;
 
-    giro ? Robot.cabeza.rotacion -= 0.5 : Robot.cabeza.rotacion += 0.5 ;
+    giro ? Robot.cabeza.rotacion -= headRotationStep : Robot.cabeza.rotacion += headRotationStep ;
     //    Dedo.x += 1 ;
     update() ;
 }
@@ -115,28 +127,77 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
         if (Robot.brazo.antebrazo.mano.apertura >= 10)
             Robot.brazo.antebrazo.mano.apertura-= 1 ;
         break;
+    case Qt::Key_E:angleStep+=1; Window->armsNumber->setValue(angleStep);break;
+    case Qt::Key_R:if(angleStep!=0) angleStep-=1; Window->armsNumber->setValue(angleStep);break;
+
+    case Qt::Key_T:translationStep+=0.01; Window->armsTranslationNumber->setValue(translationStep);break;
+    case Qt::Key_Y:if(translationStep!=0)translationStep-=0.01; Window->armsTranslationNumber->setValue(translationStep);break;
+
+    case Qt::Key_U:handsOpeningStep+=1; Window->handsNumber->setValue(handsOpeningStep);break;
+    case Qt::Key_I:if(handsOpeningStep!=0)handsOpeningStep-=1; Window->handsNumber->setValue(handsOpeningStep);break;
     case Qt::Key_P:Draw_point=!Draw_point;break;
     case Qt::Key_L:Draw_line=!Draw_line;break;
-    case Qt::Key_F:Draw_fill=!Draw_fill;break;
-    case Qt::Key_C:Draw_chess=!Draw_chess;break;
-    case Qt::Key_F3:GOURAD = false ;break;
-    case Qt::Key_F4:GOURAD = true ;break;
+    case Qt::Key_F1:texturing=false ;lighting=false ; Draw_fill=!Draw_fill;break;
+    case Qt::Key_F2:texturing=false ;lighting=false ;Draw_chess=!Draw_chess;break;
+    case Qt::Key_F3:texturing=false ;lighting=true ; GOURAD = false ;break;
+    case Qt::Key_F4:texturing=false ;lighting=true ; GOURAD = true ;break;
+    case Qt::Key_F5:texturing=true;lighting = false;GOURAD = false ;break;
+    case Qt::Key_F6:texturing=true;lighting = true;GOURAD = false ;break;
+    case Qt::Key_F7:texturing=true;lighting = true;GOURAD = true ;break;
+
+    case Qt::Key_J:light0=!light0;break;
+    case Qt::Key_K:light1=!light1;break;
+
+    case Qt::Key_C:ortho=false;break;
+    case Qt::Key_V:ortho=true;break;
+
+    case Qt::Key_M:material = (material+1)%3;break;
 
     case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
     case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;
     case Qt::Key_Up:Observer_angle_x-=ANGLE_STEP;break;
     case Qt::Key_Down:Observer_angle_x+=ANGLE_STEP;break;
-    case Qt::Key_PageUp:Observer_distance*=1.2;break;
-    case Qt::Key_PageDown:Observer_distance/=1.2;break;
+    case Qt::Key_PageUp:Observer_distance*=1.2; orthoZoom*=1.2;break;
+    case Qt::Key_PageDown:Observer_distance/=1.2;orthoZoom/=1.2;break;
 
     }
-
+    Window->gouradCheckbox->setChecked(GOURAD) ;
+    Window->lightingCheckbox->setChecked(lighting) ;
+    Window->textureCheckbox->setChecked(texturing) ;
     update();
 }
 
-//void _gl_widget::mouseMoveEvent(QKeyEvent *Keyevent) {
+void _gl_widget::wheelEvent(QWheelEvent *wheelEvent) {
+    int numDegrees = wheelEvent->delta() / 8;
+    int numSteps = numDegrees / 15;
+    float zoomFactor = 1.0 + numSteps * 0.1;
+    Observer_distance /= zoomFactor ;
+    orthoZoom /= zoomFactor ;
+    update() ;
+}
 
-//}
+void _gl_widget::mousePressEvent(QMouseEvent *event) {
+
+    if (event->button() == Qt::LeftButton)
+        lastMousePos = event->pos();
+}
+
+void _gl_widget::mouseMoveEvent(QMouseEvent *event) {
+
+    if (event->buttons() & Qt::LeftButton)
+    {
+        // Calculate the rotation angle based on the mouse movement
+        QPoint delta = event->pos() - lastMousePos;
+
+        // Update the observer angle with the rotation
+        Observer_angle_x += (float) delta.y() / 4 ;
+        Observer_angle_y += (float) delta.x() / 4 ;
+
+        // Save the current mouse position for the next mouseMoveEvent
+        lastMousePos = event->pos();
+        update() ;
+    }
+}
 
 
 /*****************************************************************************//**
@@ -156,24 +217,37 @@ void _gl_widget::change_light()
     glMatrixMode(GL_MODELVIEW) ;
     glPushMatrix() ;
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0) ;
-    if (!GOURAD) glShadeModel(GL_FLAT);
-    else glShadeModel(GL_SMOOTH) ;
-//    glEnable(GL_COLOR_MATERIAL);
-//        glMaterialf(GL_FRONT,GL_SHININESS, 128) ;
-    glLightfv(GL_LIGHT0, GL_POSITION, Light_position) ;
-    // Set the diffuse light component
-    GLfloat diffuseLight[] = {1, 1, 1, 1};
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+    if (lighting) {
+        glEnable(GL_LIGHTING) ;
+        light0 ? glEnable(GL_LIGHT0) : glDisable(GL_LIGHT0) ;
+        light1 ? glEnable(GL_LIGHT1) : glDisable(GL_LIGHT1) ;
+        glDisable(GL_COLOR_MATERIAL);
+        //Select the ShadeModel we want
+        if (!GOURAD) glShadeModel(GL_FLAT);
+        else glShadeModel(GL_SMOOTH) ;
+        glLightfv(GL_LIGHT0, GL_POSITION, Light_position2) ;
+        glLightfv(GL_LIGHT1, GL_POSITION, Light_position) ;
+        // Set the diffuse light component
+        GLfloat diffuseLight[] = {1, 0, 1, 1};
+        glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuseLight);
+        GLfloat diffuseLight0[] = {1, 1, 1, 1};
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight0);
 
-//    GLfloat light_ambient[] = { 0.5, 0.0, 0.5, 1.0};
-//    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+        GLfloat light_ambient[] = { 0.1, 0.1, 0.1, 1.0};
+        glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 
-    // Set the specular light component
-    GLfloat specularLight[] = {1, 1, 1, 1};
-    glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-//    glDisable(GL_LIGHTING) ;
+        // Set the specular light component
+        GLfloat specularLight[] = {0.5, 0, 0.5, 1};
+        glLightfv(GL_LIGHT1, GL_SPECULAR, specularLight);
+        GLfloat specularLight0[] = {0, 0, 0, 0};
+        glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight0);
+
+        GLfloat spotDirection[] = {0,0,0} ;
+        glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spotDirection) ;
+    }else {
+        glDisable(GL_LIGHTING) ;
+        glEnable(GL_COLOR_MATERIAL);
+    }
     glPopMatrix() ;
 
 }
@@ -194,7 +268,10 @@ void _gl_widget::change_projection()
 
     // formato(x_minimo,x_maximo, y_minimo, y_maximo,Front_plane, plano_traser)
     // Front_plane>0  Back_plane>PlanoDelantero)
-    glFrustum(-x_size,x_size,-y_size,y_size,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
+    if(!ortho)
+        glFrustum(-x_size,x_size,-y_size,y_size,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
+    else
+        glOrtho(-x_size*orthoZoom,x_size*orthoZoom,-y_size*orthoZoom,y_size*orthoZoom,FRONT_PLANE_PERSPECTIVE/2,BACK_PLANE_PERSPECTIVE);
 }
 
 
@@ -227,7 +304,6 @@ void _gl_widget::change_observer()
 void _gl_widget::draw_objects()
 {
     Axis.draw_line();
-
     if (Draw_point){
         glPointSize(5);
         glColor3fv((GLfloat *) &BLACK);
@@ -262,15 +338,57 @@ void _gl_widget::draw_objects()
 
     if (Draw_fill){
         glColor3fv((GLfloat *) &BLUE);
+        if(lighting) {
+            glEnable(GL_LIGHTING) ;
+            if (material == 0) {
+                GLfloat material_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
+                GLfloat material_specular[] = { 0.1, 0.1, 0.1, 1.0 };
+                GLfloat material_ambient[] = {0.2, 0.2, 0.2, 1} ;
+                GLfloat material_emission[] = {0, 0, 0, 1} ;
+                GLfloat material_shininess = 64;
+                glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
+                glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+                glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
+                glMaterialfv(GL_FRONT, GL_EMISSION, material_emission);
+                glMaterialf(GL_FRONT, GL_SHININESS, material_shininess);
+            }else if (material == 1) {
+                GLfloat material_diffuse[] = { 0.4, 0.6, 0.4, 1.0 };
+                GLfloat material_specular[] = { 0.3, 0.1, 0.05, 1.0 };
+                GLfloat material_ambient[] = {0, 0, 0, 1} ;
+                GLfloat material_emission[] = {0.1, 0.1, 0.1, 1} ;
+                GLfloat material_shininess = 0;
+                glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
+                glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+                glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
+                glMaterialfv(GL_FRONT, GL_EMISSION, material_emission);
+                glMaterialf(GL_FRONT, GL_SHININESS, material_shininess);
+            }else {
+                GLfloat material_diffuse[] = { 0.8, 0.6, 0.25, 1.0 };
+                GLfloat material_specular[] = { 1, 1, 0, 1.0 };
+                GLfloat material_ambient[] = {0.2, 0.2, 0.2, 1} ;
+                GLfloat material_emission[] = {0, 0, 0, 1} ;
+                GLfloat material_shininess = 128;
+                glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
+                glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+                glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
+                glMaterialfv(GL_FRONT, GL_EMISSION, material_emission);
+                glMaterialf(GL_FRONT, GL_SHININESS, material_shininess);
+            }
+
+
+        }else {
+            glDisable(GL_LIGHTING) ;
+        }
+
         switch (Object){
         case OBJECT_TETRAHEDRON:Tetrahedron.draw_fill();break;
         case OBJECT_CUBE:Cube.draw_fill();break;
         case OBJECT_PLY:Ply.draw_fill();break;
         case OBJECT_CONE:Cone.draw_fill();break;
         case OBJECT_CYLINDER:Cylinder.draw_fill();break;
-        case OBJECT_SPHERE:Sphere.draw_fill();break;
+        case OBJECT_SPHERE:texturing ? Sphere.draw_texture() : Sphere.draw_fill();break;
         case OBJECT_HIERARCHICAL:Robot.draw("FILL");break;
-        case OBJECT_DASHBOARD:Tablero.draw_fill();break;
+        case OBJECT_DASHBOARD:texturing ? Tablero.draw_texture() : Tablero.draw_fill();break;
         default:break;
         }
     }
@@ -304,8 +422,8 @@ void _gl_widget::paintGL()
     clear_window();
     change_projection();
     change_observer();
-    draw_objects();
     change_light() ;
+    draw_objects();
 }
 
 
@@ -318,14 +436,10 @@ void _gl_widget::paintGL()
 
 void _gl_widget::resizeGL(int Width1, int Height1)
 {
-    //  std::cout << Width1 << endl ;
-    //  std::cout << Height1 << endl ;
-    //  float aspectRatio = Width1/Height1 ;
     const float ar = (float) Height1 / (float) Width1;
     y_size = X_MAX*ar ;
     change_projection() ;
     glViewport(0,0,Width1,Height1);
-    std::cout << ar << endl ;
 }
 
 
@@ -377,9 +491,8 @@ void _gl_widget::initializeGL()
     Draw_line=true;
     Draw_fill=false;
     Draw_chess=false;
-
-    glGenTextures(1, &Tablero.textureID);
-    std::cout << Tablero.textureID << endl ;
+    COLOR = false ;
     Tablero.read_texture(Tablero.texture_name) ;
     Sphere.read_texture(Sphere.texture_name) ;
 }
+
